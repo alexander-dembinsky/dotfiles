@@ -1,1 +1,136 @@
-/home/alex/Projects/vim_configs/.vimrc
+filetype plugin on
+
+""" Common Properties 
+set nu " Line numbers
+set relativenumber " Relative line numbers
+syn on " Enable syntax highlighting
+set nowrap " Do not wrap text
+"set termguicolors " Support terminal colors
+set shiftwidth=4 " One tab == four spaces.
+set tabstop=4 " One tab == four spaces.
+set noswapfile " Diable swap files
+set list
+set listchars=tab:<->,space:· " Highlight tabs and spaces
+set expandtab " Use spaces instead of tabs
+
+""" Plugins 
+call plug#begin('~/.vim/plugged')
+
+" FZF Fuzzy finder plugin
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Prevent FZF from opening files inside NERDTree's buffer
+function! FZFOpen(command_str)
+  if (expand('%') =~# 'NERD_tree' && winnr('$') > 1)
+    exe "normal! \<c-w>\<c-w>"
+  endif
+  exe 'normal! ' . a:command_str . "\<cr>"
+endfunction
+
+nnoremap <silent> <C-p> :call FZFOpen(':Files')<CR>
+
+" Nerd Tree
+Plug 'scrooloose/nerdtree' 
+
+" Icons for NERDTree
+Plug 'ryanoasis/vim-devicons' 
+
+let g:NERDTreeChDirMode = 2
+
+" Color schemes ---
+Plug 'morhetz/gruvbox' " Gruvbox Color Scheme
+
+
+" Git integration 
+Plug 'tpope/vim-fugitive'
+
+" Vim Airline
+Plug 'vim-airline/vim-airline'
+
+
+" Language server protocols
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    " nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    inoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    inoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    nnoremap <F3> :LspDocumentDiagnostic<CR>
+    nnoremap <F4> :LspCodeAction<CR>
+
+    "let g:lsp_format_sync_timeout = 1000
+    "autocmd! BufWritePre *.rs,*.go,*.ts,*.py call execute('LspDocumentFormatSync')
+    
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+" Unit Testing
+Plug 'vim-test/vim-test'
+
+call plug#end()
+
+""" Current color scheme
+colorscheme gruvbox
+set background=dark
+
+""" Vim cursor support for Windows Terminal application
+if &term =~ '^xterm'
+  " normal mode
+  let &t_EI .= "\<Esc>[0 q"
+  " insert mode
+  let &t_SI .= "\<Esc>[6 q"
+endif
+
+""" Key bindings
+" List of windows
+nnoremap <F5> :W<cr>
+
+" Resizing splits
+nmap <C-w><Right> :vert res +3<cr><C-w>
+nmap <C-w><Left> :vert res -3<cr><C-w>
+
+nmap <C-w><Up> :res +3<cr><C-w>
+nmap <C-w><Down> :res -3<cr><C-w>
+
+" Toggling NERDTree
+nmap <F7> :NERDTreeToggle<CR> 
+let NERDTreeMinimalUI = 1
+
+" Autocomplete
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+" Unit testing
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+" Jest
+let test#javascript#jest#executable = 'npx jest --runTestsByPath'
