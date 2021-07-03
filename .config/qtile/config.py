@@ -38,7 +38,7 @@ import sys
 
 mod = "mod4"
 terminal = guess_terminal()
-
+fileman = "thunar"
 widget_font_big=20
 icon_theme_path = "/usr/share/icons/Tela-dark/24/panel"
 
@@ -109,7 +109,7 @@ keys = [
     Key([mod, "shift"], "Print", lazy.spawn("spectacle -r"), desc="Area screenshot"),
     Key([], "Print", lazy.spawn("spectacle"), desc="Screenshot"),
     # File Manager
-    Key([mod], "e", lazy.spawn("pcmanfm"), desc="File Manager"),
+    Key([mod], "e", lazy.spawn(fileman), desc="File Manager"),
     # Ulauncher
     Key([], "F1", lazy.spawn("ulauncher"), desc="Launcher"),
     # Shutdown
