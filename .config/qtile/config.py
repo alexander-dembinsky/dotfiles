@@ -120,19 +120,21 @@ keys = [
     # Task list
     Key([alt], "Tab", lazy.spawn("rofi -show window"), desc="Show current tasks"),
 
+    # Moving between groups
+    Key(["control", alt], "Left", lazy.screen.prev_group(), desc="Prev Group"),
+    Key(["control", alt], "Right", lazy.screen.next_group(), desc="Next Group"),
+
+    # Resize windows
+
+    Key(["control", alt], "g", lazy.layout.grow(), desc="Grow"),
+    Key(["control", alt], "s", lazy.layout.shrink(), desc="Shrink"),
+    Key(["control", alt], "n", lazy.layout.normalize(), desc="Normalize"),
+    Key(["control", alt], "m", lazy.layout.maximize(), desc="Maximize"),
+
     # Fn keys
     Key([], "XF86AudioRaiseVolume", lazy.function(lambda qtile: volume_widget.cmd_increase_vol())),
     Key([], "XF86AudioLowerVolume", lazy.function(lambda qtile: volume_widget.cmd_decrease_vol())),
     Key([], "XF86AudioMute", lazy.function(lambda qtile: volume_widget.cmd_mute())),
-    
-    # Resize 
-    KeyChord([mod], "r", [
-        Key([], "g", lazy.layout.grow()),
-        Key([], "s", lazy.layout.shrink()),
-        Key([], "n", lazy.layout.normalize()),
-        Key([], "m", lazy.layout.maximize())],
-        mode="Windows"
-    ),
 ]
 
 groups = [Group(i) for i in "123456789"]
