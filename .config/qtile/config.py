@@ -64,6 +64,7 @@ keys = [
     #Key([mod], "space", lazy.layout.next(),
         #desc="Move window focus to other window"),
 
+        
     Key([mod], "space", lazy.function(switch_keyboard_layout), 
         desc="Switch Keyboard Layout"),
     # Move windows between left/right columns or move up/down in current stack.
@@ -101,8 +102,7 @@ keys = [
 
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(),
-        desc="Spawn a command using a prompt widget"),
+
     Key([mod, "shift"], "t", lazy.window.toggle_floating(), desc="Toggle floating layout"),
 
     # Screenshot
@@ -114,6 +114,8 @@ keys = [
     Key([], "F1", lazy.spawn("ulauncher"), desc="Launcher"),
     # Shutdown
     Key([mod, "control"], "F12", lazy.function(lambda qtile: shutdown()), desc="Shutdown menu"),
+    # Lock screen
+    Key([mod, "control"], "l", lazy.spawn("dm-tool lock"), desc="Lock screen"),
 
     # Fn keys
     Key([], "XF86AudioRaiseVolume", lazy.function(lambda qtile: volume_widget.cmd_increase_vol())),
@@ -121,7 +123,7 @@ keys = [
     Key([], "XF86AudioMute", lazy.function(lambda qtile: volume_widget.cmd_mute())),
     
     # Resize 
-    KeyChord([mod], "z", [
+    KeyChord([mod], "r", [
         Key([], "g", lazy.layout.grow()),
         Key([], "s", lazy.layout.shrink()),
         Key([], "n", lazy.layout.normalize()),
