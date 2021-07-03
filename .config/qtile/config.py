@@ -37,6 +37,7 @@ import subprocess
 import sys
 
 mod = "mod4"
+alt = "mod1"
 terminal = guess_terminal()
 fileman = "thunar"
 widget_font_big=20
@@ -116,6 +117,8 @@ keys = [
     Key([mod, "control"], "F12", lazy.function(lambda qtile: shutdown()), desc="Shutdown menu"),
     # Lock screen
     Key([mod, "control"], "l", lazy.spawn("dm-tool lock"), desc="Lock screen"),
+    # Task list
+    Key([alt], "Tab", lazy.spawn("rofi -show window"), desc="Show current tasks"),
 
     # Fn keys
     Key([], "XF86AudioRaiseVolume", lazy.function(lambda qtile: volume_widget.cmd_increase_vol())),
@@ -155,7 +158,7 @@ layouts = [
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    layout.MonadTall(border_focus="#228888", margin=6),
+    layout.MonadTall(border_focus="#554488", margin=6),
     layout.Max(),
     
     # layout.MonadWide(),
