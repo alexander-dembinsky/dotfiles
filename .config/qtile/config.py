@@ -43,10 +43,16 @@ fileman = "thunar"
 widget_font_big=20
 icon_theme_path = "/usr/share/icons/Tela-dark/24/panel"
 
-keyboard_layouts = ["us","ru","ua"]
-keyboard_layout_widget = widget.KeyboardLayout(configured_keyboards=keyboard_layouts, fontsize=widget_font_big)
+colors = {
+        "primary_focus": "#554488",
+        "secondary_focus": "#3916a3",
+        "bar_background": "#222233"
+}
 
-volume_widget = widget.Volume(theme_path=icon_theme_path, volume_app="pavucontrol", padding=0, step=10)
+keyboard_layouts = ["us","ru","ua"]
+keyboard_layout_widget = widget.KeyboardLayout(configured_keyboards=keyboard_layouts, fontsize=widget_font_big, background=colors["primary_focus"])
+
+volume_widget = widget.Volume(theme_path=icon_theme_path, volume_app="pavucontrol", padding=0, step=10, background=colors["primary_focus"])
 
 def switch_keyboard_layout(qtile):
     keyboard_layout_widget.next_keyboard()
@@ -186,15 +192,17 @@ screens = [
                 widget.CurrentLayoutIcon(scale=0.8),
                 widget.GroupBox(),
                 widget.WindowName(font="JetBrains Nerd Font"),
+                widget.Image(filename="~/.config/qtile/img/arrow_purple.png"),
                 keyboard_layout_widget,
                 volume_widget,
-                widget.Systray(icon_size=22, padding=8),
-                widget.Clock(format="%A %d %B %H:%M", fontsize=20),
-                widget.TextBox("", mouse_callbacks={"Button1": shutdown}, fontsize=widget_font_big)
+                widget.Systray(icon_size=22, padding=8, background=colors["primary_focus"]),
+                widget.Image(filename="~/.config/qtile/img/arrow_blue.png"),
+                widget.Clock(format="%A %d %B %H:%M", fontsize=20, background=colors["secondary_focus"]),
+                widget.TextBox("", mouse_callbacks={"Button1": shutdown}, fontsize=widget_font_big, background=colors["secondary_focus"])
             ],
             32,
             opacity=0.9,
-            background="#222233",
+            background=colors["bar_background"],
         ),
     ),
 ]
