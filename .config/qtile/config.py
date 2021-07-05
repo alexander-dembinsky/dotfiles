@@ -197,7 +197,7 @@ screens = [
                 volume_widget,
                 widget.Systray(icon_size=22, padding=8, background=colors["primary_focus"]),
                 widget.Image(filename="~/.config/qtile/img/arrow_blue.png"),
-                widget.Clock(format="%A %d %B %H:%M", fontsize=20, background=colors["secondary_focus"]),
+                widget.Clock(format="⏱  %m/%d %H:%M", fontsize=18, background=colors["secondary_focus"]),
                 widget.TextBox("", mouse_callbacks={"Button1": shutdown}, fontsize=widget_font_big, background=colors["secondary_focus"])
             ],
             32,
