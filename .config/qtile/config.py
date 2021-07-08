@@ -196,9 +196,9 @@ screens = [
         top=bar.Bar(
             [
                 widget.Image(filename="~/.config/qtile/img/apps.svg", mouse_callbacks={"Button1": run_launcher}, margin=4, background=colors["primary_focus"]),
-                widget.Image(filename="~/.config/qtile/img/arrow_right_purple.svg", background="#004949ff"),
-                widget.GroupBox(background="#004949ff", inactive="#222233"),
-                widget.Image(filename="~/.config/qtile/img/arrow_right_brown.svg"),
+                widget.Image(filename="~/.config/qtile/img/arrow_right_purple.svg", background="#303030"),
+                widget.GroupBox(background="#303030", inactive="#a9a9a9"),
+                widget.Image(filename="~/.config/qtile/img/arrow_right_gray.svg"),
                 widget.WindowName(font="JetBrains Nerd Font"),
                 widget.Image(filename="~/.config/qtile/img/arrow_left_purple.svg"),
                 widget.CurrentLayoutIcon(scale=0.6, background=colors["primary_focus"]),
@@ -206,9 +206,9 @@ screens = [
                 volume_widget,
                 widget.Systray(icon_size=22, padding=8, background=colors["primary_focus"]),
                 widget.Sep(background=colors["primary_focus"], linewidth=8, foreground=colors["primary_focus"]),
-                widget.Image(filename="~/.config/qtile/img/arrow_left_blue.svg", background=colors["primary_focus"]),
-                widget.Clock(format="⏱  %m/%d %H:%M", fontsize=18, background=colors["secondary_focus"]),
-                widget.TextBox("", mouse_callbacks={"Button1": shutdown}, fontsize=widget_font_big, background=colors["secondary_focus"])
+                widget.Image(filename="~/.config/qtile/img/arrow_left_gray.svg", background=colors["primary_focus"]),
+                widget.Clock(format="⏱  %m/%d %H:%M", fontsize=18, background="#303030"),
+                widget.TextBox("", mouse_callbacks={"Button1": shutdown}, fontsize=widget_font_big, background="#303030")
             ],
             32,
             opacity=0.9,
