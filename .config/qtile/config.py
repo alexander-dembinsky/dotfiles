@@ -40,6 +40,7 @@ mod = "mod4"
 alt = "mod1"
 terminal = guess_terminal()
 fileman = "thunar"
+browser = "firefox"
 widget_font_big=20
 icon_theme_path = "/usr/share/icons/Tela-dark/24/panel"
 
@@ -105,7 +106,7 @@ keys = [
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
+    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
 
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
@@ -117,6 +118,8 @@ keys = [
     Key([], "Print", lazy.spawn("spectacle"), desc="Screenshot"),
     # File Manager
     Key([mod], "e", lazy.spawn(fileman), desc="File Manager"),
+    # Browser
+    Key([mod], "f", lazy.spawn(browser), desc="Web Browser"),
     # Ulauncher
     Key([], "F1", lazy.spawn("ulauncher"), desc="Launcher"),
     # Shutdown
