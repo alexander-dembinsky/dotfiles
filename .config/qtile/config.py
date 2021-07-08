@@ -45,8 +45,8 @@ widget_font_big=20
 icon_theme_path = "/usr/share/icons/Tela-dark/24/panel"
 
 colors = {
-        "primary_focus": "#554488",
-        "secondary_focus": "#3916a3",
+        "primary_focus": "#800080ff",
+        "secondary_focus": "#000080ff",
         "bar_background": "#222233"
 }
 
@@ -195,15 +195,18 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.Image(filename="~/.config/qtile/img/apps.png", mouse_callbacks={"Button1": run_launcher}),
-                widget.GroupBox(),
+                widget.Image(filename="~/.config/qtile/img/apps.svg", mouse_callbacks={"Button1": run_launcher}, margin=4, background=colors["primary_focus"]),
+                widget.Image(filename="~/.config/qtile/img/arrow_right_purple.svg", background="#004949ff"),
+                widget.GroupBox(background="#004949ff", inactive="#222233"),
+                widget.Image(filename="~/.config/qtile/img/arrow_right_brown.svg"),
                 widget.WindowName(font="JetBrains Nerd Font"),
-                widget.Image(filename="~/.config/qtile/img/arrow_purple.png"),
-                widget.CurrentLayoutIcon(scale=0.8, background=colors["primary_focus"]),
+                widget.Image(filename="~/.config/qtile/img/arrow_left_purple.svg"),
+                widget.CurrentLayoutIcon(scale=0.6, background=colors["primary_focus"]),
                 keyboard_layout_widget,
                 volume_widget,
                 widget.Systray(icon_size=22, padding=8, background=colors["primary_focus"]),
-                widget.Image(filename="~/.config/qtile/img/arrow_blue.png"),
+                widget.Sep(background=colors["primary_focus"], linewidth=8, foreground=colors["primary_focus"]),
+                widget.Image(filename="~/.config/qtile/img/arrow_left_blue.svg", background=colors["primary_focus"]),
                 widget.Clock(format="⏱  %m/%d %H:%M", fontsize=18, background=colors["secondary_focus"]),
                 widget.TextBox("", mouse_callbacks={"Button1": shutdown}, fontsize=widget_font_big, background=colors["secondary_focus"])
             ],
