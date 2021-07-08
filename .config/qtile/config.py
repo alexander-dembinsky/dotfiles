@@ -63,6 +63,9 @@ def shutdown():
     qtile.cmd_spawn("sh " + home + "/.config/qtile/shutdown.sh")
 
 
+def run_launcher():
+    qtile.cmd_spawn('rofi -modi drun,run -show drun -font "Cantarell 18" -show-icons -matching fuzzy')
+
 keys = [
     # Switch between windows
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -120,8 +123,8 @@ keys = [
     Key([mod], "e", lazy.spawn(fileman), desc="File Manager"),
     # Browser
     Key([mod], "f", lazy.spawn(browser), desc="Web Browser"),
-    # Ulauncher
-    Key([], "F1", lazy.spawn("ulauncher"), desc="Launcher"),
+    # Rofi
+    Key([mod], "r", lazy.function(lambda qtile: run_launcher()), desc="Launcher"),
     # Shutdown
     Key([mod, "control"], "F12", lazy.function(lambda qtile: shutdown()), desc="Shutdown menu"),
     # Lock screen
@@ -192,10 +195,11 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayoutIcon(scale=0.8),
+                widget.Image(filename="~/.config/qtile/img/apps.png", mouse_callbacks={"Button1": run_launcher}),
                 widget.GroupBox(),
                 widget.WindowName(font="JetBrains Nerd Font"),
                 widget.Image(filename="~/.config/qtile/img/arrow_purple.png"),
+                widget.CurrentLayoutIcon(scale=0.8, background=colors["primary_focus"]),
                 keyboard_layout_widget,
                 volume_widget,
                 widget.Systray(icon_size=22, padding=8, background=colors["primary_focus"]),
