@@ -12,6 +12,8 @@ set noswapfile " Diable swap files
 set list
 set listchars=tab:<->,space:· " Highlight tabs and spaces
 set expandtab " Use spaces instead of tabs
+set guifont=JetBrainsMonoNL\ Nerd\ Font\ Mono\ 13 
+set guioptions-=T
 
 """ Plugins 
 call plug#begin('~/.vim/plugged')
@@ -40,7 +42,6 @@ let g:NERDTreeChDirMode = 2
 
 " Color schemes ---
 Plug 'morhetz/gruvbox' " Gruvbox Color Scheme
-
 
 " Git integration 
 Plug 'tpope/vim-fugitive'
@@ -74,7 +75,7 @@ function! s:on_lsp_buffer_enabled() abort
     inoremap <buffer> <expr><c-d> lsp#scroll(-4)
 
     nnoremap <F3> :LspDocumentDiagnostic<CR>
-    nnoremap <F4> :LspCodeAction<CR>
+    nnoremap <F1> :LspCodeAction<CR>
 
     "let g:lsp_format_sync_timeout = 1000
     "autocmd! BufWritePre *.rs,*.go,*.ts,*.py call execute('LspDocumentFormatSync')
@@ -134,3 +135,15 @@ nmap <silent> t<C-g> :TestVisit<CR>
 
 " Jest
 let test#javascript#jest#executable = 'npx jest --runTestsByPath'
+
+" Grep Project
+function! Grep()
+    let pattern = input('Enter pattern: ')
+    let path = input('Enter path: ', './**/*')
+    set wildignore=*/node_modules/*
+    exec "vimgrep /" . pattern . "/ " . path . " | :copen"
+endfunction
+
+nnoremap <F4> :call Grep()<CR>
+
+
