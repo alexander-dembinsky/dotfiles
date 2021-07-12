@@ -123,6 +123,10 @@ keys = [
     Key([mod], "e", lazy.spawn(fileman), desc="File Manager"),
     # Browser
     Key([mod], "f", lazy.spawn(browser), desc="Web Browser"),
+ 
+    # gVim
+    Key([mod], "v", lazy.spawn("gvim"), desc="gVim"),
+
     # Rofi
     Key([mod], "r", lazy.function(lambda qtile: run_launcher()), desc="Launcher"),
     # Shutdown

@@ -12,7 +12,7 @@ set noswapfile " Diable swap files
 set list
 set listchars=tab:<->,space:· " Highlight tabs and spaces
 set expandtab " Use spaces instead of tabs
-set guifont=JetBrainsMonoNL\ Nerd\ Font\ Mono\ 13 
+set guifont=JetBrainsMono\ Nerd\ Font\ Mono\ 13 
 set guioptions-=T
 
 """ Plugins 
