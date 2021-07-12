@@ -6,12 +6,13 @@ set relativenumber " Relative line numbers
 syn on " Enable syntax highlighting
 set nowrap " Do not wrap text
 "set termguicolors " Support terminal colors
-set shiftwidth=4 " One tab == four spaces.
-set tabstop=4 " One tab == four spaces.
+set shiftwidth=2 " One tab == four spaces.
+set tabstop=2 " One tab == four spaces.
 set noswapfile " Diable swap files
 set list
 set listchars=tab:<->,space:· " Highlight tabs and spaces
 set expandtab " Use spaces instead of tabs
+set hlsearch " Highlight search results
 set guifont=JetBrainsMono\ Nerd\ Font\ Mono\ 13 
 set guioptions-=T
 
