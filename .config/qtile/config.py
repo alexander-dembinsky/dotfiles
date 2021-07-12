@@ -124,8 +124,8 @@ keys = [
     # Browser
     Key([mod], "f", lazy.spawn(browser), desc="Web Browser"),
  
-    # gVim
-    Key([mod], "v", lazy.spawn("gvim"), desc="gVim"),
+    # Vim
+    Key([mod], "v", lazy.spawn(terminal + " -e vim"), desc="Vim"),
 
     # Rofi
     Key([mod], "r", lazy.function(lambda qtile: run_launcher()), desc="Launcher"),
