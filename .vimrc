@@ -13,8 +13,12 @@ set list
 set listchars=tab:<->,space:· " Highlight tabs and spaces
 set expandtab " Use spaces instead of tabs
 set hlsearch " Highlight search results
+set clipboard=unnamed " Clipboard Copy/Paste
 set guifont=JetBrainsMono\ Nerd\ Font\ Mono\ 13 
 set guioptions-=T
+
+set path+=** " Recursive file search
+set wildmenu
 
 """ Plugins 
 call plug#begin('~/.vim/plugged')
