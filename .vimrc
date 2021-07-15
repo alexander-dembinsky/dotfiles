@@ -47,6 +47,7 @@ let g:NERDTreeChDirMode = 2
 
 " Color schemes ---
 Plug 'morhetz/gruvbox' " Gruvbox Color Scheme
+Plug 'ayu-theme/ayu-vim'
 
 " Git integration 
 Plug 'tpope/vim-fugitive'
@@ -100,8 +101,12 @@ Plug 'vim-test/vim-test'
 call plug#end()
 
 """ Current color scheme
-colorscheme gruvbox
-set background=dark
+"colorscheme gruvbox
+"set background=dark
+"
+set termguicolors
+let ayucolor="mirage"
+colorscheme ayu
 
 """ Vim cursor support for Windows Terminal application
 if &term =~ '^xterm'
