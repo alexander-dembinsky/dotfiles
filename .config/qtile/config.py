@@ -45,15 +45,28 @@ widget_font_big=20
 icon_theme_path = "/usr/share/icons/Tela-dark/24/panel"
 
 colors = {
+        "primary": "#800080",
+        "secondary": "#4b0082",
+        "group_active": "#ffffff",
+        "group_inactive": "#a9a9a9",
+        "window_name": "#dddddd",
+        "group_icon": "#ff0000",
+
         "primary_focus": "#800080ff",
         "secondary_focus": "#000080ff",
-        "bar_background": "#222233"
+        "bar_background": "#222233",
+        "bar_text": "#dddddd",
 }
 
-keyboard_layouts = ["us","ru","ua"]
-keyboard_layout_widget = widget.KeyboardLayout(configured_keyboards=keyboard_layouts, fontsize=widget_font_big, background=colors["primary_focus"])
 
-volume_widget = widget.Volume(theme_path=icon_theme_path, volume_app="pavucontrol", padding=0, step=10, background=colors["primary_focus"])
+keyboard_layouts = ["us","ru","ua"]
+keyboard_layout_widget = widget.KeyboardLayout(configured_keyboards=keyboard_layouts, fontsize=widget_font_big, background=colors["primary"])
+
+volume_widget = widget.Volume(theme_path=icon_theme_path, volume_app="pavucontrol", padding=0, step=10, background=colors["primary"])
+
+def generate_arrows(primary_color, secondary_color):
+    home = os.path.expanduser("~")
+    qtile.cmd_spawn("sh " + home + "/.config/qtile/generate_arrows.sh {primary_color} {secondary_color}".format(primary_color=primary_color.lstrip('#'), secondary_color=secondary_color.lstrip('#')))
 
 def switch_keyboard_layout(qtile):
     keyboard_layout_widget.next_keyboard()
@@ -65,6 +78,9 @@ def shutdown():
 
 def run_launcher():
     qtile.cmd_spawn('rofi -modi drun,run -show drun -font "Cantarell 18" -show-icons -matching fuzzy')
+
+
+generate_arrows(colors["primary"], colors["secondary"])
 
 keys = [
     # Switch between windows
@@ -199,20 +215,20 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.Image(filename="~/.config/qtile/img/apps.svg", mouse_callbacks={"Button1": run_launcher}, margin=4, background=colors["primary_focus"]),
-                widget.Image(filename="~/.config/qtile/img/arrow_right_purple.svg", background="#303030"),
-                widget.GroupBox(background="#303030", inactive="#a9a9a9"),
-                widget.Image(filename="~/.config/qtile/img/arrow_right_gray.svg"),
-                widget.WindowName(font="JetBrains Nerd Font"),
-                widget.Image(filename="~/.config/qtile/img/arrow_left_purple.svg"),
-                widget.CurrentLayoutIcon(scale=0.6, background=colors["primary_focus"]),
+                widget.Image(filename="~/.config/qtile/img/apps.svg", mouse_callbacks={"Button1": run_launcher}, margin=4, background=colors["primary"]),
+                widget.Image(filename="~/.config/qtile/img/arrow_right_primary.svg", background=colors["secondary"]),
+                widget.GroupBox(background=colors["secondary"], inactive=colors["group_inactive"], active=colors["group_active"]),
+                widget.Image(filename="~/.config/qtile/img/arrow_right_secondary.svg"),
+                widget.WindowName(font="JetBrains Nerd Font", foreground=colors["window_name"]),
+                widget.Image(filename="~/.config/qtile/img/arrow_left_primary.svg"),
+                widget.CurrentLayoutIcon(scale=0.6, background=colors["primary"], foreground=colors["group_icon"]),
                 keyboard_layout_widget,
                 volume_widget,
-                widget.Systray(icon_size=22, padding=8, background=colors["primary_focus"]),
-                widget.Sep(background=colors["primary_focus"], linewidth=8, foreground=colors["primary_focus"]),
-                widget.Image(filename="~/.config/qtile/img/arrow_left_gray.svg", background=colors["primary_focus"]),
-                widget.Clock(format="⏱  %m/%d %H:%M", fontsize=18, background="#303030"),
-                widget.TextBox("", mouse_callbacks={"Button1": shutdown}, fontsize=widget_font_big, background="#303030")
+                widget.Systray(icon_size=22, padding=8, background=colors["primary"]),
+                widget.Sep(background=colors["primary"], linewidth=8, foreground=colors["primary"]),
+                widget.Image(filename="~/.config/qtile/img/arrow_left_secondary.svg", background=colors["primary"]),
+                widget.Clock(format="⏱  %m/%d %H:%M", fontsize=18, background=colors["secondary"]),
+                widget.TextBox("", mouse_callbacks={"Button1": shutdown}, fontsize=widget_font_big, background=colors["secondary"])
             ],
             32,
             opacity=0.9,
