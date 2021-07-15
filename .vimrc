@@ -10,7 +10,7 @@ set shiftwidth=2 " One tab == four spaces.
 set tabstop=2 " One tab == four spaces.
 set noswapfile " Diable swap files
 set list
-set listchars=tab:<->,space:· " Highlight tabs and spaces
+set listchars=tab:<-> " Highlight tabs and spaces
 set expandtab " Use spaces instead of tabs
 set hlsearch " Highlight search results
 set clipboard=unnamed " Clipboard Copy/Paste
@@ -47,7 +47,7 @@ let g:NERDTreeChDirMode = 2
 
 " Color schemes ---
 Plug 'morhetz/gruvbox' " Gruvbox Color Scheme
-Plug 'ayu-theme/ayu-vim'
+Plug 'wadackel/vim-dogrun'
 
 " Git integration 
 Plug 'tpope/vim-fugitive'
@@ -104,9 +104,7 @@ call plug#end()
 "colorscheme gruvbox
 "set background=dark
 "
-set termguicolors
-let ayucolor="mirage"
-colorscheme ayu
+colorscheme dogrun
 
 """ Vim cursor support for Windows Terminal application
 if &term =~ '^xterm'
