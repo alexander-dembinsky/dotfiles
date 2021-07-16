@@ -34,6 +34,9 @@ Plug 'wadackel/vim-dogrun'
 
 " Git integration 
 Plug 'tpope/vim-fugitive'
+map <leader>gs :G<CR>
+map <leader>gj :diffget //3<CR>
+map <leader>gf :diffget //2<CR>
 
 " Vim Airline
 Plug 'vim-airline/vim-airline'
