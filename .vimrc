@@ -5,7 +5,6 @@ set nu " Line numbers
 set relativenumber " Relative line numbers
 syn on " Enable syntax highlighting
 set nowrap " Do not wrap text
-"set termguicolors " Support terminal colors
 set shiftwidth=2 " One tab == four spaces.
 set tabstop=2 " One tab == four spaces.
 set noswapfile " Diable swap files
@@ -27,23 +26,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" Prevent FZF from opening files inside NERDTree's buffer
-function! FZFOpen(command_str)
-  if (expand('%') =~# 'NERD_tree' && winnr('$') > 1)
-    exe "normal! \<c-w>\<c-w>"
-  endif
-  exe 'normal! ' . a:command_str . "\<cr>"
-endfunction
-
 nnoremap <silent> <C-p> :call FZFOpen(':Files')<CR>
-
-" Nerd Tree
-Plug 'scrooloose/nerdtree' 
-
-" Icons for NERDTree
-Plug 'ryanoasis/vim-devicons' 
-
-let g:NERDTreeChDirMode = 2
 
 " Color schemes ---
 Plug 'morhetz/gruvbox' " Gruvbox Color Scheme
@@ -124,10 +107,6 @@ nmap <C-w><Left> :vert res -3<cr><C-w>
 
 nmap <C-w><Up> :res +3<cr><C-w>
 nmap <C-w><Down> :res -3<cr><C-w>
-
-" Toggling NERDTree
-nmap <F7> :NERDTreeToggle<CR> 
-let NERDTreeMinimalUI = 1
 
 " Autocomplete
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
