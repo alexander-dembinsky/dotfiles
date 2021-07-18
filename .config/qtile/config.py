@@ -78,7 +78,8 @@ def shutdown():
 
 
 def run_launcher():
-    qtile.cmd_spawn('rofi -modi drun,run -show drun -font "Cantarell 18" -show-icons -matching fuzzy')
+    home = os.path.expanduser("~")
+    qtile.cmd_spawn("sh " + home + "/.config/qtile/app_menu.sh")
 
 
 generate_arrows(colors["primary"], colors["secondary"])
