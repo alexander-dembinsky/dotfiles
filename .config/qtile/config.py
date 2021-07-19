@@ -46,16 +46,16 @@ widget_font_big=20
 icon_theme_path = "/usr/share/icons/Tela-dark/24/panel"
 
 colors = {
-        "primary": "#07572d",
-        "secondary": "#338259",
+        "primary": "#5677fc",
+        "secondary": "#404552",
         "group_active": "#ffffff",
         "group_inactive": "#a9a9a9",
         "window_name": "#dddddd",
         "group_icon": "#ff0000",
 
-        "primary_focus": "#338259",
+        "primary_focus": "#5294e2",
         "secondary_focus": "#000080ff",
-        "bar_background": "#222222",
+        "bar_background": "#353945",
         "bar_text": "#dddddd",
 }
 
