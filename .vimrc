@@ -19,6 +19,8 @@ set guioptions-=T
 set path+=** " Recursive file search
 set wildmenu
 
+set siffixesadd+=.ts " Suffixes for 'gf' command
+
 """ Plugins 
 call plug#begin('~/.vim/plugged')
 
