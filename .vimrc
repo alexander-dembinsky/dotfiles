@@ -13,8 +13,6 @@ set listchars=tab:<-> " Highlight tabs and spaces
 set expandtab " Use spaces instead of tabs
 set hlsearch " Highlight search results
 set clipboard=unnamed " Clipboard Copy/Paste
-set guifont=JetBrainsMono\ Nerd\ Font\ Mono\ 13 
-set guioptions-=T
 
 set path+=** " Recursive file search
 set wildmenu
@@ -23,12 +21,6 @@ set suffixesadd+=.ts " Suffixes for 'gf' command
 
 """ Plugins 
 call plug#begin('~/.vim/plugged')
-
-" FZF Fuzzy finder plugin
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
-nnoremap <silent> <C-p> :call FZFOpen(':Files')<CR>
 
 " Color schemes ---
 Plug 'morhetz/gruvbox' " Gruvbox Color Scheme
@@ -103,15 +95,20 @@ if &term =~ '^xterm'
 endif
 
 """ Key bindings
+
+" Clear highlighting
+nnoremap <silent> <C-l> :<C-u>nohl<cr><C-l>
+
 " List of windows
 nnoremap <F5> :W<cr>
 
 " Resizing splits
-nmap <C-w><Right> :vert res +3<cr><C-w>
-nmap <C-w><Left> :vert res -3<cr><C-w>
+nmap <leader>wg :vert res +3<cr>
+nmap <leader>ws :vert res -3<cr>
 
-nmap <C-w><Up> :res +3<cr><C-w>
-nmap <C-w><Down> :res -3<cr><C-w>
+nmap <leader>wh :res 3 :res -3<cr>
+nmap <leader>wl :res -3<cr>
+
 
 " Autocomplete
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
