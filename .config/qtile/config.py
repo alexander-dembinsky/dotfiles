@@ -43,7 +43,6 @@ terminal = guess_terminal()
 fileman = "thunar"
 browser = "firefox"
 widget_font_big=20
-icon_theme_path = "/usr/share/icons/Tela-dark/24/panel"
 
 colors = {
         "primary": "#5677fc",
@@ -63,7 +62,7 @@ colors = {
 keyboard_layouts = ["us","ru","ua"]
 keyboard_layout_widget = widget.KeyboardLayout(configured_keyboards=keyboard_layouts, fontsize=widget_font_big, background=colors["primary"])
 
-volume_widget = widget.Volume(theme_path=icon_theme_path, volume_app="pavucontrol", padding=0, step=10, background=colors["primary"])
+volume_widget = widget.Volume(volume_app="pavucontrol", padding=0, step=10, background=colors["primary"])
 
 def generate_arrows(primary_color, secondary_color):
     home = os.path.expanduser("~")
@@ -225,7 +224,6 @@ screens = [
                 widget.Image(filename="~/.config/qtile/img/arrow_left_primary.svg"),
                 widget.CurrentLayoutIcon(scale=0.6, background=colors["primary"], foreground=colors["group_icon"]),
                 keyboard_layout_widget,
-                volume_widget,
                 widget.Systray(icon_size=22, padding=8, background=colors["primary"]),
                 widget.Sep(background=colors["primary"], linewidth=8, foreground=colors["primary"]),
                 widget.Image(filename="~/.config/qtile/img/arrow_left_secondary.svg", background=colors["primary"]),
