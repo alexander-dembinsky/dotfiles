@@ -35,7 +35,6 @@ map <leader>gf :diffget //2<CR>
 " Vim Airline
 Plug 'vim-airline/vim-airline'
 
-
 " Language server protocols
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
@@ -61,12 +60,8 @@ function! s:on_lsp_buffer_enabled() abort
     inoremap <buffer> <expr><c-d> lsp#scroll(-4)
 
     nnoremap <F3> :LspDocumentDiagnostic<CR>
-    nnoremap <F1> :LspCodeAction<CR>
 
-    "let g:lsp_format_sync_timeout = 1000
-    "autocmd! BufWritePre *.rs,*.go,*.ts,*.py call execute('LspDocumentFormatSync')
-    
-    " refer to doc to add more commands
+    nnoremap <leader>fd :LspDocumentFormat<CR>
 endfunction
 
 augroup lsp_install
@@ -96,19 +91,17 @@ endif
 
 """ Key bindings
 
+" Disable arrows
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+" Diable backspace and Del key in insert mode
+inoremap <BS> <Nop>
+inoremap <Del> <Nop>
+
 " Clear highlighting
 nnoremap <silent> <C-l> :<C-u>nohl<cr><C-l>
-
-" List of windows
-nnoremap <F5> :W<cr>
-
-" Resizing splits
-nmap <leader>wg :vert res +3<cr>
-nmap <leader>ws :vert res -3<cr>
-
-nmap <leader>wh :res 3 :res -3<cr>
-nmap <leader>wl :res -3<cr>
-
 
 " Autocomplete
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -116,23 +109,12 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
 " Unit testing
-nmap <silent> t<C-n> :TestNearest<CR>
-nmap <silent> t<C-f> :TestFile<CR>
-nmap <silent> t<C-s> :TestSuite<CR>
-nmap <silent> t<C-l> :TestLast<CR>
-nmap <silent> t<C-g> :TestVisit<CR>
+nmap <leader>tn :TestNearest<CR>
+nmap <leader>tf :TestFile<CR>
+nmap <leader>ts :TestSuite<CR>
+nmap <leader>tl :TestLast<CR>
+nmap <leader>tv :TestVisit<CR>
 
 " Jest
 let test#javascript#jest#executable = 'npx jest --runTestsByPath'
-
-" Grep Project
-function! Grep()
-    let pattern = input('Enter pattern: ')
-    let path = input('Enter path: ', './**/*')
-    set wildignore=*/node_modules/*
-    exec "vimgrep /" . pattern . "/ " . path . " | :copen"
-endfunction
-
-nnoremap <F4> :call Grep()<CR>
-
 
