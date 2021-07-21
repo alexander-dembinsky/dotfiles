@@ -170,7 +170,18 @@ keys = [
     Key([], "XF86AudioMute", lazy.function(lambda qtile: volume_widget.cmd_mute())),
 ]
 
-groups = [Group(i) for i in "123456789"]
+#groups = [Group(i) for i in "123456789"]
+groups = [
+        Group("1", init=True, matches=Match(title="Firefox")),
+        Group("2", matches=Match(wm_class="Microsoft Teams - Preview")),
+        Group("3", matches=Match(wm_class="Wfica"), layout="max"),
+        Group("4"),
+        Group("5"),
+        Group("6"),
+        Group("7"),
+        Group("8"),
+        Group("9"),
+]
 
 for i in groups:
     keys.extend([
@@ -280,24 +291,4 @@ wmname = "LG3D"
 def autostart():
     home = os.path.expanduser("~")
     subprocess.Popen([home + "/.config/qtile/autostart.sh"])
-
-@hook.subscribe.client_new
-def _swallow(window):
-    pid = window.window.get_net_wm_pid()
-    ppid = psutil.Process(pid).ppid()
-    cpids = {c.window.get_net_wm_pid(): wid for wid, c in window.qtile.windows_map.items()}
-    for i in range(5):
-        if not ppid:
-            return
-        if ppid in cpids:
-            parent = window.qtile.windows_map.get(cpids[ppid])
-            parent.minimized = True
-            window.parent = parent
-            return
-        ppid = psutil.Process(ppid).ppid()
-
-@hook.subscribe.client_killed
-def _unswallow(window):
-    if hasattr(window, 'parent'):
-        window.parent.minimized = False
 
