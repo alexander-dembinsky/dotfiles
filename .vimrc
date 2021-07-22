@@ -16,6 +16,7 @@ set clipboard=unnamed " Clipboard Copy/Paste
 
 set path+=** " Recursive file search
 set wildmenu
+set wildignore=**/node_modules/**,**/.git/**,**/__pycache__/**
 
 set suffixesadd+=.ts " Suffixes for 'gf' command
 
@@ -102,6 +103,25 @@ inoremap <Del> <Nop>
 
 " Clear highlighting
 nnoremap <silent> <C-l> :<C-u>nohl<cr><C-l>
+
+" Find
+nmap <leader>ff :find 
+
+" Switch between buffers
+nmap <leader>[ :bp<cr>
+nmap <leader>] :bn<cr>
+
+" Switch between quickfix entries
+nmap <leader>c[ :cprev<cr>
+nmap <leader>c] :cnext<cr>
+nmap <leader>co :copen<cr>
+nmap <leader>cc :cclose<cr>
+
+" Switch between location entries
+nmap <leader>l[ :lprev<cr>
+nmap <leader>l] :lnext<cr>
+nmap <leader>lo :lopen<cr>
+nmap <leader>lc :lclose<cr>
 
 " Autocomplete
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
