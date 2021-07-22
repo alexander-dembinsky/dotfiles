@@ -229,7 +229,7 @@ screens = [
             [
                 widget.Image(filename="~/.config/qtile/img/apps.svg", mouse_callbacks={"Button1": run_launcher}, margin=4, background=colors["primary"]),
                 widget.Image(filename="~/.config/qtile/img/arrow_right_primary.svg", background=colors["secondary"]),
-                widget.GroupBox(background=colors["secondary"], inactive=colors["group_inactive"], active=colors["group_active"]),
+                widget.GroupBox(highlight_method='line', highlight_color=colors["primary"], background=colors["secondary"], inactive=colors["group_inactive"], active=colors["group_active"]),
                 widget.Image(filename="~/.config/qtile/img/arrow_right_secondary.svg"),
                 widget.WindowName(font="JetBrains Nerd Font", foreground=colors["window_name"]),
                 widget.Image(filename="~/.config/qtile/img/arrow_left_primary.svg"),
@@ -272,6 +272,7 @@ floating_layout = layout.Floating(border_width=0, float_rules=[
     Match(wm_class='ssh-askpass'),  # ssh-askpass
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
+    Match(title='Steam'),  
 ])
 auto_fullscreen = False
 focus_on_window_activation = "smart"
