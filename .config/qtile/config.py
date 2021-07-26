@@ -75,6 +75,10 @@ def shutdown():
     home = os.path.expanduser("~")
     qtile.cmd_spawn("sh " + home + "/.config/qtile/shutdown.sh")
 
+def show_calendar():
+    home = os.path.expanduser("~")
+    qtile.cmd_spawn("sh " + home + "/.config/qtile/show_calendar.sh")
+
 
 def run_launcher():
     home = os.path.expanduser("~")
@@ -237,7 +241,7 @@ screens = [
                 widget.Systray(icon_size=20, padding=8, background=colors["secondary"]),
                 widget.Sep(background=colors["secondary"], linewidth=8, foreground=colors["secondary"]),
                 widget.Image(filename="~/.config/qtile/img/arrow_left_primary.svg", background=colors["secondary"]),
-                widget.Clock(format="⏱  %m/%d %H:%M", fontsize=widget_font_big, background=colors["primary"]),
+                widget.Clock(format="⏱  %m/%d %H:%M", fontsize=widget_font_big, background=colors["primary"], mouse_callbacks={"Button1": show_calendar}),
                 widget.TextBox("", mouse_callbacks={"Button1": shutdown}, fontsize=widget_font_big, background=colors["primary"])
             ],
             32,
@@ -272,6 +276,7 @@ floating_layout = layout.Floating(border_width=0, float_rules=[
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
     Match(title='Steam'),  
+    Match(title='Calendar'),  
 ])
 auto_fullscreen = False
 focus_on_window_activation = "smart"
