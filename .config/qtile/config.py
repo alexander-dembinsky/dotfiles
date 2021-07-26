@@ -42,11 +42,11 @@ alt = "mod1"
 terminal = guess_terminal()
 fileman = "thunar"
 browser = "firefox"
-widget_font_big=20
+widget_font_big=18
 
 colors = {
         "primary": "#5677fc",
-        "secondary": "#404552",
+        "secondary": "#505562",
         "group_active": "#ffffff",
         "group_inactive": "#a9a9a9",
         "window_name": "#dddddd",
@@ -60,7 +60,7 @@ colors = {
 
 
 keyboard_layouts = ["us","ru","ua"]
-keyboard_layout_widget = widget.KeyboardLayout(configured_keyboards=keyboard_layouts, fontsize=widget_font_big, background=colors["primary"])
+keyboard_layout_widget = widget.KeyboardLayout(configured_keyboards=keyboard_layouts, fontsize=widget_font_big, background=colors["secondary"])
 
 volume_widget = widget.Volume(volume_app="pavucontrol", padding=0, step=10, background=colors["primary"])
 
@@ -206,7 +206,6 @@ layouts = [
     # layout.Matrix(),
     layout.MonadTall(border_focus=colors["primary_focus"], margin=6),
     layout.Max(),
-    
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -216,7 +215,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='Cantarell',
+    font='Monaco',
     fontsize=14,
     padding=6,
 )
@@ -231,15 +230,15 @@ screens = [
                 widget.Image(filename="~/.config/qtile/img/arrow_right_primary.svg", background=colors["secondary"]),
                 widget.GroupBox(background=colors["secondary"], inactive=colors["group_inactive"], active=colors["group_active"]),
                 widget.Image(filename="~/.config/qtile/img/arrow_right_secondary.svg"),
-                widget.WindowName(font="JetBrains Nerd Font", foreground=colors["window_name"]),
-                widget.Image(filename="~/.config/qtile/img/arrow_left_primary.svg"),
-                widget.CurrentLayoutIcon(scale=0.6, background=colors["primary"], foreground=colors["group_icon"]),
+                widget.WindowName(foreground=colors["window_name"]),
+                widget.Image(filename="~/.config/qtile/img/arrow_left_secondary.svg"),
+                widget.CurrentLayoutIcon(scale=0.6, background=colors["secondary"], foreground=colors["group_icon"]),
                 keyboard_layout_widget,
-                widget.Systray(icon_size=22, padding=8, background=colors["primary"]),
-                widget.Sep(background=colors["primary"], linewidth=8, foreground=colors["primary"]),
-                widget.Image(filename="~/.config/qtile/img/arrow_left_secondary.svg", background=colors["primary"]),
-                widget.Clock(format="⏱  %m/%d %H:%M", fontsize=18, background=colors["secondary"]),
-                widget.TextBox("", mouse_callbacks={"Button1": shutdown}, fontsize=widget_font_big, background=colors["secondary"])
+                widget.Systray(icon_size=20, padding=8, background=colors["secondary"]),
+                widget.Sep(background=colors["secondary"], linewidth=8, foreground=colors["secondary"]),
+                widget.Image(filename="~/.config/qtile/img/arrow_left_primary.svg", background=colors["secondary"]),
+                widget.Clock(format="⏱  %m/%d %H:%M", fontsize=widget_font_big, background=colors["primary"]),
+                widget.TextBox("", mouse_callbacks={"Button1": shutdown}, fontsize=widget_font_big, background=colors["primary"])
             ],
             32,
             opacity=0.9,
