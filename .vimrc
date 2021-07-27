@@ -23,6 +23,10 @@ set suffixesadd+=.ts " Suffixes for 'gf' command
 """ Plugins 
 call plug#begin('~/.vim/plugged')
 
+" Fuzzy finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 " Color schemes ---
 Plug 'morhetz/gruvbox' " Gruvbox Color Scheme
 Plug 'wadackel/vim-dogrun'
@@ -104,8 +108,13 @@ inoremap <Del> <Nop>
 " Clear highlighting
 nnoremap <silent> <C-l> :<C-u>nohl<cr><C-l>
 
-" Find
-nmap <leader>ff :find 
+" FZF
+nmap <leader>ff :Files<cr>
+nmap <leader>fl :Lines<cr>
+nmap <leader>fb :Buffers<cr>
+nmap <leader>fm :Marks<cr>
+nmap <leader>fc :Commits<cr>
+nmap <leader>fw :Windows<cr>
 
 " Switch between buffers
 nmap <leader>[ :bp<cr>
