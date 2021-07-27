@@ -40,6 +40,8 @@ map <leader>gf :diffget //2<CR>
 
 " Snippets
 Plug 'SirVer/ultisnips'
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
+
 " Vim Airline
 Plug 'vim-airline/vim-airline'
 
@@ -149,4 +151,8 @@ nmap <leader>tv :TestVisit<CR>
 
 " Jest
 let test#javascript#jest#executable = 'npx jest --runTestsByPath'
+
+" New line in insert mode
+imap <leader>n <C-O>o
+imap <leader>N <C-O>O
 
