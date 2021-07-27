@@ -72,6 +72,7 @@ function! s:on_lsp_buffer_enabled() abort
     nnoremap <F3> :LspDocumentDiagnostic<CR>
 
     nnoremap <leader>fd :LspDocumentFormat<CR>
+    nnoremap <leader>ca :LspCodeAction<CR>
 endfunction
 
 augroup lsp_install
