@@ -33,10 +33,13 @@ Plug 'wadackel/vim-dogrun'
 
 " Git integration 
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 map <leader>gs :G<CR>
 map <leader>gj :diffget //3<CR>
 map <leader>gf :diffget //2<CR>
 
+" Snippets
+Plug 'SirVer/ultisnips'
 " Vim Airline
 Plug 'vim-airline/vim-airline'
 
