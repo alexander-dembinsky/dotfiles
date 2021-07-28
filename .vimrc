@@ -123,18 +123,18 @@ nmap <leader>fc :Commits<cr>
 nmap <leader>fw :Windows<cr>
 
 " Switch between buffers
-nmap <leader>[ :bp<cr>
-nmap <leader>] :bn<cr>
+nmap [b :bp<cr>
+nmap ]b :bn<cr>
 
 " Switch between quickfix entries
-nmap <leader>c[ :cprev<cr>
-nmap <leader>c] :cnext<cr>
+nmap [c :cprev<cr>
+nmap ]c :cnext<cr>
 nmap <leader>co :copen<cr>
 nmap <leader>cc :cclose<cr>
 
 " Switch between location entries
-nmap <leader>l[ :lprev<cr>
-nmap <leader>l] :lnext<cr>
+nmap [l :lprev<cr>
+nmap ]l :lnext<cr>
 nmap <leader>lo :lopen<cr>
 nmap <leader>lc :lclose<cr>
 
