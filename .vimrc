@@ -154,6 +154,6 @@ nmap <leader>tv :TestVisit<CR>
 let test#javascript#jest#executable = 'npx jest --runTestsByPath'
 
 " New line in insert mode
-imap <leader>n <C-O>o
-imap <leader>N <C-O>O
+imap <leader>o <C-O>o
+imap <leader>O <C-O>O
 
