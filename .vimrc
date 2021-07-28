@@ -1,6 +1,8 @@
 filetype plugin on
 
 """ Common Properties 
+set nocompatible
+set hidden 
 set nu " Line numbers
 set relativenumber " Relative line numbers
 syn on " Enable syntax highlighting
@@ -11,7 +13,7 @@ set noswapfile " Diable swap files
 set list
 set listchars=tab:<-> " Highlight tabs and spaces
 set expandtab " Use spaces instead of tabs
-set hlsearch " Highlight search results
+set nohlsearch " Do not highlight search results
 set clipboard=unnamed " Clipboard Copy/Paste
 
 set path+=** " Recursive file search
@@ -41,6 +43,10 @@ map <leader>gf :diffget //2<CR>
 " Snippets
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
+
+" Editing
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 
 " Vim Airline
 Plug 'vim-airline/vim-airline'
