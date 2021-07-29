@@ -51,6 +51,9 @@ Plug 'tpope/vim-surround'
 " Vim Airline
 Plug 'vim-airline/vim-airline'
 
+" NERDTree
+Plug 'preservim/nerdtree'
+
 " Language server protocols
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
