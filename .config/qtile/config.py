@@ -66,23 +66,23 @@ volume_widget = widget.Volume(volume_app="pavucontrol", padding=0, step=10, back
 
 def generate_arrows(primary_color, secondary_color):
     home = os.path.expanduser("~")
-    qtile.cmd_spawn("sh " + home + "/.config/qtile/generate_arrows.sh {primary_color} {secondary_color}".format(primary_color=primary_color.lstrip('#'), secondary_color=secondary_color.lstrip('#')))
+    qtile.cmd_spawn("sh " + home + "/.config/qtile/scripts/generate_arrows.sh {primary_color} {secondary_color}".format(primary_color=primary_color.lstrip('#'), secondary_color=secondary_color.lstrip('#')))
 
 def switch_keyboard_layout(qtile):
     keyboard_layout_widget.next_keyboard()
 
 def shutdown():
     home = os.path.expanduser("~")
-    qtile.cmd_spawn("sh " + home + "/.config/qtile/shutdown.sh")
+    qtile.cmd_spawn("sh " + home + "/.config/qtile/scripts/shutdown.sh")
 
 def show_calendar():
     home = os.path.expanduser("~")
-    qtile.cmd_spawn("sh " + home + "/.config/qtile/show_calendar.sh")
+    qtile.cmd_spawn("sh " + home + "/.config/qtile/scripts/show_calendar.sh")
 
 
 def run_launcher():
     home = os.path.expanduser("~")
-    qtile.cmd_spawn("sh " + home + "/.config/qtile/app_menu.sh")
+    qtile.cmd_spawn("sh " + home + "/.config/qtile/scripts/app_menu.sh")
 
 
 generate_arrows(colors["primary"], colors["secondary"])
@@ -330,5 +330,5 @@ wmname = "LG3D"
 @hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser("~")
-    subprocess.Popen([home + "/.config/qtile/autostart.sh"])
+    subprocess.Popen([home + "/.config/qtile/scripts/autostart.sh"])
 
