@@ -15,6 +15,7 @@ set listchars=tab:<-> " Highlight tabs and spaces
 set expandtab " Use spaces instead of tabs
 set nohlsearch " Do not highlight search results
 set clipboard=unnamed " Clipboard Copy/Paste
+set noeb vb t_vb= " Disable beeping
 
 set path+=** " Recursive file search
 set wildmenu
