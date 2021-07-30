@@ -154,12 +154,10 @@ keys = [
     Key([mod, "control"], "F12", lazy.function(lambda qtile: shutdown()), desc="Shutdown menu"),
     # Lock screen
     Key([mod, "control"], "l", lazy.spawn("dm-tool lock"), desc="Lock screen"),
-    # Task list
-    Key([alt], "Tab", lazy.spawn("rofi -show window"), desc="Show current tasks"),
 
     # Moving between groups
-    Key(["control", alt], "Left", lazy.screen.prev_group(), desc="Prev Group"),
-    Key(["control", alt], "Right", lazy.screen.next_group(), desc="Next Group"),
+    Key([alt, "shift"], "Tab", lazy.screen.prev_group(), desc="Prev Group"),
+    Key([alt], "Tab", lazy.screen.next_group(), desc="Next Group"),
 
     # Resize windows
 
@@ -312,8 +310,9 @@ floating_layout = layout.Floating(border_width=0, float_rules=[
     Match(title='pinentry'),  # GPG key password entry
     Match(title='Steam'),  
     Match(title='Calendar'),  
+    Match(wm_class='arcologout.py'),  
 ])
-auto_fullscreen = False
+auto_fullscreen = True
 focus_on_window_activation = "smart"
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
