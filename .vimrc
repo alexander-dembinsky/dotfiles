@@ -166,3 +166,7 @@ let test#javascript#jest#executable = 'npx jest --runTestsByPath'
 imap <leader>o <C-O>o
 imap <leader>O <C-O>O
 
+" NERDTree
+nnoremap <F7> :NERDTreeToggle<cr>
+nnoremap <leader>nf :NERDTreeFocus<cr>
+nnoremap <leader>ns :NERDTreeFind<cr>
