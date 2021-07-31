@@ -27,22 +27,19 @@
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget, hook, qtile
-from libqtile.config import Click, Drag, Group, Key, Match, Screen, KeyChord
+from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-from libqtile.log_utils import logger
 
 import os
 import subprocess
-import sys
-import psutil
 
 mod = "mod4"
 alt = "mod1"
 terminal = guess_terminal()
 fileman = "thunar"
 browser = "firefox"
-widget_font_big=18
+widget_font_big = 18
 
 colors = {
         "primary": "#5677fc",
@@ -59,21 +56,36 @@ colors = {
 }
 
 
-keyboard_layouts = ["us","ru","ua"]
-keyboard_layout_widget = widget.KeyboardLayout(configured_keyboards=keyboard_layouts, fontsize=widget_font_big, background=colors["secondary"])
+keyboard_layouts = ["us", "ru", "ua"]
+keyboard_layout_widget = widget.KeyboardLayout(
+        configured_keyboards=keyboard_layouts,
+        fontsize=widget_font_big, background=colors["secondary"]
+)
 
-volume_widget = widget.Volume(volume_app="pavucontrol", padding=0, step=10, background=colors["primary"])
+volume_widget = widget.Volume(
+        volume_app="pavucontrol",
+        padding=0,
+        step=10,
+        background=colors["primary"]
+)
+
 
 def generate_arrows(primary_color, secondary_color):
     home = os.path.expanduser("~")
-    qtile.cmd_spawn("sh " + home + "/.config/qtile/scripts/generate_arrows.sh {primary_color} {secondary_color}".format(primary_color=primary_color.lstrip('#'), secondary_color=secondary_color.lstrip('#')))
+    qtile.cmd_spawn("sh " + home + "/.config/qtile/scripts/generate_arrows.sh \
+                    {primary_color} {secondary_color}"
+                    .format(primary_color=primary_color.lstrip('#'),
+                            secondary_color=secondary_color.lstrip('#')))
+
 
 def switch_keyboard_layout(qtile):
     keyboard_layout_widget.next_keyboard()
 
+
 def shutdown():
     home = os.path.expanduser("~")
     qtile.cmd_spawn("sh " + home + "/.config/qtile/scripts/shutdown.sh")
+
 
 def show_calendar():
     home = os.path.expanduser("~")
@@ -93,11 +105,7 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    #Key([mod], "space", lazy.layout.next(),
-        #desc="Move window focus to other window"),
-
-        
-    Key([mod], "space", lazy.function(switch_keyboard_layout), 
+    Key([mod], "space", lazy.function(switch_keyboard_layout),
         desc="Switch Keyboard Layout"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
@@ -135,23 +143,28 @@ keys = [
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
 
-    Key([mod, "shift"], "t", lazy.window.toggle_floating(), desc="Toggle floating layout"),
+    Key([mod, "shift"], "t", lazy.window.toggle_floating(),
+        desc="Toggle floating layout"),
 
     # Screenshot
-    Key([mod, "shift"], "Print", lazy.spawn("spectacle -r"), desc="Area screenshot"),
+    Key([mod, "shift"], "Print", lazy.spawn("spectacle -r"),
+        desc="Area screenshot"),
+
     Key([], "Print", lazy.spawn("spectacle"), desc="Screenshot"),
     # File Manager
     Key([mod], "e", lazy.spawn(fileman), desc="File Manager"),
     # Browser
     Key([mod], "f", lazy.spawn(browser), desc="Web Browser"),
- 
+
     # Vim
     Key([mod], "v", lazy.spawn(terminal + " -e vim"), desc="Vim"),
 
     # Rofi
-    Key([mod], "r", lazy.function(lambda qtile: run_launcher()), desc="Launcher"),
+    Key([mod], "r", lazy.function(lambda qtile: run_launcher()),
+        desc="Launcher"),
     # Shutdown
-    Key([mod, "control"], "F12", lazy.function(lambda qtile: shutdown()), desc="Shutdown menu"),
+    Key([mod, "control"], "F12", lazy.function(lambda qtile: shutdown()),
+        desc="Shutdown menu"),
     # Lock screen
     Key([mod, "control"], "l", lazy.spawn("dm-tool lock"), desc="Lock screen"),
 
@@ -167,12 +180,15 @@ keys = [
     Key(["control", alt], "m", lazy.layout.maximize(), desc="Maximize"),
 
     # Fn keys
-    Key([], "XF86AudioRaiseVolume", lazy.function(lambda qtile: volume_widget.cmd_increase_vol())),
-    Key([], "XF86AudioLowerVolume", lazy.function(lambda qtile: volume_widget.cmd_decrease_vol())),
-    Key([], "XF86AudioMute", lazy.function(lambda qtile: volume_widget.cmd_mute())),
+    Key([], "XF86AudioRaiseVolume", lazy.function(
+        lambda qtile: volume_widget.cmd_increase_vol())),
+    Key([], "XF86AudioLowerVolume", lazy.function(
+        lambda qtile: volume_widget.cmd_decrease_vol())),
+    Key([], "XF86AudioMute", lazy.function(
+        lambda qtile: volume_widget.cmd_mute())),
 ]
 
-#groups = [Group(i) for i in "123456789"]
+# groups = [Group(i) for i in "123456789"]
 groups = [
         Group("1", init=True, matches=Match(title="Firefox")),
         Group("2", matches=Match(wm_class="Microsoft Teams - Preview")),
@@ -191,8 +207,10 @@ for i in groups:
         Key([mod], i.name, lazy.group[i.name].toscreen(),
             desc="Switch to group {}".format(i.name)),
 
-        # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
+        # mod1 + shift + letter of group = switch to & move
+        # focused window to group
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name,
+            switch_group=True),
             desc="Switch to & move focused window to group {}".format(i.name)),
         # Or, use below if you prefer not to switch to that group.
         # # mod1 + shift + letter of group = move focused window to group
@@ -201,7 +219,7 @@ for i in groups:
     ])
 
 layouts = [
-    #layout.Columns(border_focus_stack='#d75f5f'),
+    # layout.Columns(border_focus_stack='#d75f5f'),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
@@ -308,10 +326,11 @@ floating_layout = layout.Floating(border_width=0, float_rules=[
     Match(wm_class='ssh-askpass'),  # ssh-askpass
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
-    Match(title='Steam'),  
-    Match(title='Calendar'),  
-    Match(wm_class='arcologout.py'),  
-    Match(wm_class='Variety'),  
+    Match(title='Steam'),
+    Match(title='Calendar'),
+    Match(wm_class='arcologout.py'),
+    Match(wm_class='Variety'),
+    Match(title='plank'),
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
@@ -326,9 +345,9 @@ focus_on_window_activation = "smart"
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
 
+
 # Autostart
 @hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser("~")
     subprocess.Popen([home + "/.config/qtile/scripts/autostart.sh"])
-
