@@ -39,7 +39,7 @@ colors:
     white:   '0x63686d'
 font:
   normal:
-    family: Monaco
+    family: Monospace
     style: Regular
   size: 13
 background_opacity: 0.9

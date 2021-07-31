@@ -169,5 +169,5 @@ imap <leader>O <C-O>O
 
 " NERDTree
 nnoremap <F7> :NERDTreeToggle<cr>
-nnoremap <leader>nf :NERDTreeFocus<cr>
-nnoremap <leader>ns :NERDTreeFind<cr>
+nnoremap <leader><Tab> :NERDTreeFocus<cr>
+nnoremap <leader>nf :NERDTreeFind<cr>
