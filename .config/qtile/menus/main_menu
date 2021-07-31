@@ -15,14 +15,14 @@
 # tabs = 120
 # menu_margin_x = 0
 # menu_margin_y = 0
-# menu_width = 200
+menu_width = 400
 # menu_height_min = 0
 # menu_height_max = 0
 # menu_height_mode = static
-# menu_padding_top = 5
-# menu_padding_right = 5
-# menu_padding_bottom = 5
-# menu_padding_left = 5
+menu_padding_top = 15
+menu_padding_right = 5
+menu_padding_bottom = 15
+menu_padding_left = 15
 # menu_radius = 1
 # menu_border = 0
 # menu_halign = left
@@ -36,7 +36,7 @@
 # sub_hover_action = 1
 # item_margin_x = 3
 # item_margin_y = 3
-# item_height = 25
+item_height = 36
 # item_padding_x = 4
 # item_radius = 1
 # item_border = 0
@@ -46,7 +46,7 @@
 # sep_markup = 
 font = Noto Sans:13
 # font_fallback = xtg
-# icon_size = 36
+icon_size = 32
 # icon_text_spacing = 10
 # icon_norm_alpha = 100
 # icon_sel_alpha = 100
