@@ -37,8 +37,6 @@ import subprocess
 mod = "mod4"
 alt = "mod1"
 terminal = guess_terminal()
-fileman = "thunar"
-browser = "firefox"
 widget_font_big = 18
 
 colors = {
@@ -62,39 +60,26 @@ keyboard_layout_widget = widget.KeyboardLayout(
         fontsize=widget_font_big, background=colors["secondary"]
 )
 
-volume_widget = widget.Volume(
-        volume_app="pavucontrol",
-        padding=0,
-        step=10,
-        background=colors["primary"]
-)
+volume_widget = widget.Volume(volume_app="pavucontrol")
+
+
+def run_script(scriptAndArgs):
+    home = os.path.expanduser("~")
+    qtile.cmd_spawn("sh " + home + "/.config/qtile/scripts/" + scriptAndArgs)
 
 
 def generate_arrows(primary_color, secondary_color):
-    home = os.path.expanduser("~")
-    qtile.cmd_spawn("sh " + home + "/.config/qtile/scripts/generate_arrows.sh \
-                    {primary_color} {secondary_color}"
-                    .format(primary_color=primary_color.lstrip('#'),
-                            secondary_color=secondary_color.lstrip('#')))
+    args = (primary_color.lstrip('#') + " " +
+            secondary_color.lstrip('#'))
+    run_script("generate_arrows.sh " + args)
 
 
 def switch_keyboard_layout(qtile):
     keyboard_layout_widget.next_keyboard()
 
 
-def shutdown():
-    home = os.path.expanduser("~")
-    qtile.cmd_spawn("sh " + home + "/.config/qtile/scripts/shutdown.sh")
-
-
 def show_calendar():
-    home = os.path.expanduser("~")
-    qtile.cmd_spawn("sh " + home + "/.config/qtile/scripts/show_calendar.sh")
-
-
-def run_launcher():
-    home = os.path.expanduser("~")
-    qtile.cmd_spawn("sh " + home + "/.config/qtile/scripts/app_menu.sh")
+    run_script("show_calendar.sh")
 
 
 generate_arrows(colors["primary"], colors["secondary"])
@@ -132,8 +117,6 @@ keys = [
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack"),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
 
     # Toggle between different layouts as defined below
@@ -146,24 +129,12 @@ keys = [
     Key([mod, "shift"], "t", lazy.window.toggle_floating(),
         desc="Toggle floating layout"),
 
-    # Screenshot
-    Key([mod, "shift"], "Print", lazy.spawn("spectacle -r"),
-        desc="Area screenshot"),
-
-    Key([], "Print", lazy.spawn("spectacle"), desc="Screenshot"),
-    # File Manager
-    Key([mod], "e", lazy.spawn(fileman), desc="File Manager"),
-    # Browser
-    Key([mod], "f", lazy.spawn(browser), desc="Web Browser"),
-
-    # Vim
-    Key([mod], "v", lazy.spawn(terminal + " -e vim"), desc="Vim"),
-
-    # Rofi
-    Key([mod], "r", lazy.function(lambda qtile: run_launcher()),
+    # App menu
+    Key([mod], "r", lazy.function(lambda qtile: run_script("app_menu.sh")),
         desc="Launcher"),
     # Shutdown
-    Key([mod, "control"], "F12", lazy.function(lambda qtile: shutdown()),
+    Key([mod, "control"], "F12", lazy.function(
+        lambda qtile: run_script("shutdown.sh")),
         desc="Shutdown menu"),
     # Lock screen
     Key([mod, "control"], "l", lazy.spawn("dm-tool lock"), desc="Lock screen"),
@@ -248,8 +219,11 @@ screens = [
             [
                 widget.Image(
                     filename="~/.config/qtile/img/apps.svg",
-                    mouse_callbacks={"Button1": run_launcher},
-                    margin=4, background=colors["secondary"]
+                    mouse_callbacks={
+                        "Button1": lambda: run_script("app_menu.sh")
+                    },
+                    margin=4,
+                    background=colors["secondary"]
                 ),
                 widget.GroupBox(
                     background=colors["secondary"],
@@ -290,7 +264,9 @@ screens = [
                 ),
                 widget.Image(
                     filename="~/.config/qtile/img/shutdown.svg",
-                    mouse_callbacks={"Button1": shutdown},
+                    mouse_callbacks={
+                        "Button1": lambda: run_script("shutdown.sh")
+                    },
                     margin=4,
                     background=colors["secondary"]
                 ),
