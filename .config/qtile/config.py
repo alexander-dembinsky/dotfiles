@@ -311,6 +311,7 @@ floating_layout = layout.Floating(border_width=0, float_rules=[
     Match(title='Steam'),  
     Match(title='Calendar'),  
     Match(wm_class='arcologout.py'),  
+    Match(wm_class='Variety'),  
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
