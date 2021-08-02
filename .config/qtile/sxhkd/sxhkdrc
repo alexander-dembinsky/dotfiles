@@ -47,6 +47,9 @@ super + shift + Return
 #Toggle fullscreen of window
 super + shift + f
     qtile-cmd -o window -f toggle_fullscreen
+
+super + shift + Print
+    spectacle -r -c
 #################################################################
 # CONTROL + ALT KEYS
 #################################################################
