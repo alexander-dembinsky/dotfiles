@@ -34,30 +34,23 @@ from libqtile.utils import guess_terminal
 import os
 import subprocess
 
+# Theming ##########################################
+import theme
+
+theme_name = "default"
+theme_config_reader = theme.ThemeConfigReader()
+theme = theme_config_reader.read(theme_name)
+
+####################################################
 mod = "mod4"
 alt = "mod1"
 terminal = guess_terminal()
 widget_font_big = 18
 
-colors = {
-        "primary": "#5677fc",
-        "secondary": "#505562",
-        "group_active": "#ffffff",
-        "group_inactive": "#a9a9a9",
-        "window_name": "#dddddd",
-        "group_icon": "#ff0000",
-
-        "primary_focus": "#5294e2",
-        "secondary_focus": "#000080ff",
-        "bar_background": "#353945",
-        "bar_text": "#dddddd",
-}
-
-
 keyboard_layouts = ["us", "ru", "ua"]
 keyboard_layout_widget = widget.KeyboardLayout(
         configured_keyboards=keyboard_layouts,
-        fontsize=widget_font_big, background=colors["secondary"]
+        fontsize=widget_font_big, background=theme.widget_default_background
 )
 
 volume_widget = widget.Volume(volume_app="pavucontrol")
@@ -68,9 +61,9 @@ def run_script(scriptAndArgs):
     qtile.cmd_spawn("sh " + home + "/.config/qtile/scripts/" + scriptAndArgs)
 
 
-def generate_arrows(primary_color, secondary_color):
-    args = (primary_color.lstrip('#') + " " +
-            secondary_color.lstrip('#'))
+def generate_arrows(color):
+    args = ("000000 " +
+            color.lstrip('#'))
     run_script("generate_arrows.sh " + args)
 
 
@@ -82,7 +75,7 @@ def show_calendar():
     run_script("show_calendar.sh")
 
 
-generate_arrows(colors["primary"], colors["secondary"])
+generate_arrows(theme.widget_default_background)
 
 keys = [
     # Switch between windows
@@ -90,8 +83,11 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+
+    # Switch keyboard layout TODO: Move to xshkd
     Key([mod], "space", lazy.function(switch_keyboard_layout),
         desc="Switch Keyboard Layout"),
+
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(),
@@ -102,46 +98,26 @@ keys = [
         desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
 
-    # Grow windows. If current window is on the edge of screen and direction
-    # will be to screen edge - window would shrink.
-    Key([mod, "control"], "h", lazy.layout.grow_left(),
-        desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(),
-        desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(),
-        desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-
-    # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
-
+    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-
     Key([mod, "shift"], "t", lazy.window.toggle_floating(),
         desc="Toggle floating layout"),
-
-    # App menu
-    Key([mod], "r", lazy.function(lambda qtile: run_script("app_menu.sh")),
-        desc="Launcher"),
-    # Shutdown
-    Key([mod, "control"], "F12", lazy.function(
-        lambda qtile: run_script("shutdown.sh")),
-        desc="Shutdown menu"),
-    # Lock screen
-    Key([mod, "control"], "l", lazy.spawn("dm-tool lock"), desc="Lock screen"),
 
     # Moving between groups
     Key([alt, "shift"], "Tab", lazy.screen.prev_group(), desc="Prev Group"),
     Key([alt], "Tab", lazy.screen.next_group(), desc="Next Group"),
+
+    # App menu
+    Key([mod], "r", lazy.function(lambda qtile: run_script("app_menu.sh")),
+        desc="Launcher"),
+
+    # Shutdown
+    Key([mod, "control"], "F12", lazy.function(
+        lambda qtile: run_script("shutdown.sh")),
+        desc="Shutdown menu"),
 
     # Resize windows
 
@@ -150,7 +126,7 @@ keys = [
     Key(["control", alt], "n", lazy.layout.normalize(), desc="Normalize"),
     Key(["control", alt], "m", lazy.layout.maximize(), desc="Maximize"),
 
-    # Fn keys
+    # Fn keys TODO: Check if it will work only with xshkd
     Key([], "XF86AudioRaiseVolume", lazy.function(
         lambda qtile: volume_widget.cmd_increase_vol())),
     Key([], "XF86AudioLowerVolume", lazy.function(
@@ -159,7 +135,6 @@ keys = [
         lambda qtile: volume_widget.cmd_mute())),
 ]
 
-# groups = [Group(i) for i in "123456789"]
 groups = [
         Group("1", init=True, matches=Match(title="Firefox")),
         Group("2", matches=Match(wm_class="Microsoft Teams - Preview")),
@@ -174,19 +149,12 @@ groups = [
 
 for i in groups:
     keys.extend([
-        # mod1 + letter of group = switch to group
         Key([mod], i.name, lazy.group[i.name].toscreen(),
             desc="Switch to group {}".format(i.name)),
 
-        # mod1 + shift + letter of group = switch to & move
-        # focused window to group
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name,
             switch_group=True),
             desc="Switch to & move focused window to group {}".format(i.name)),
-        # Or, use below if you prefer not to switch to that group.
-        # # mod1 + shift + letter of group = move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-        #     desc="move focused window to group {}".format(i.name)),
     ])
 
 layouts = [
@@ -195,7 +163,7 @@ layouts = [
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    layout.MonadTall(border_focus=colors["primary_focus"], margin=6),
+    layout.MonadTall(border_focus=theme.border_focus, margin=6),
     layout.Max(),
     # layout.MonadWide(),
     # layout.RatioTile(),
@@ -223,44 +191,44 @@ screens = [
                         "Button1": lambda: run_script("app_menu.sh")
                     },
                     margin=4,
-                    background=colors["secondary"]
+                    background=theme.apps_background,
                 ),
                 widget.GroupBox(
-                    background=colors["secondary"],
-                    inactive=colors["group_inactive"],
-                    active=colors["group_active"]
+                    inactive=theme.group_inactive,
+                    active=theme.group_active,
+                    background=theme.widget_default_background
                 ),
                 widget.Image(
                     filename="~/.config/qtile/img/arrow_right_secondary.svg"
                 ),
                 widget.WindowName(
-                    foreground=colors["window_name"],
-                    fontsize=16
+                    foreground=theme.window_name_foreground,
+                    fontsize=16,
                 ),
                 widget.Image(
                     filename="~/.config/qtile/img/arrow_left_secondary.svg"
                 ),
                 widget.CurrentLayoutIcon(
                     scale=0.6,
-                    background=colors["secondary"],
-                    foreground=colors["group_icon"]
+                    background=theme.group_icon_background,
+                    foreground=theme.group_icon_foreground,
                 ),
                 keyboard_layout_widget,
                 widget.Systray(
                     icon_size=22,
                     padding=6,
-                    background=colors["secondary"]
+                    background=theme.widget_default_background
                 ),
                 widget.Sep(
-                    background=colors["secondary"],
                     linewidth=8,
-                    foreground=colors["secondary"]
+                    foreground=theme.widget_default_background,
+                    background=theme.widget_default_background
                 ),
                 widget.Clock(
                     format="%m/%d %H:%M",
                     fontsize=widget_font_big,
-                    background=colors["secondary"],
-                    mouse_callbacks={"Button1": show_calendar}
+                    mouse_callbacks={"Button1": show_calendar},
+                    background=theme.widget_default_background
                 ),
                 widget.Image(
                     filename="~/.config/qtile/img/shutdown.svg",
@@ -268,12 +236,12 @@ screens = [
                         "Button1": lambda: run_script("shutdown.sh")
                     },
                     margin=4,
-                    background=colors["secondary"]
+                    background=theme.widget_default_background
                 ),
             ],
             32,
             opacity=1,
-            background=colors["bar_background"],
+            background=[theme.bar_background_1, theme.bar_background_2]
         ),
     ),
 ]

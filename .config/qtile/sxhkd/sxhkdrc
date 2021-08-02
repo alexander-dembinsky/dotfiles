@@ -30,6 +30,10 @@ super + Escape
 super + f
      firefox
 
+#Ranger file manager
+super + e
+     alacritty -e ranger
+
 #Keyboard dependent
 
 #################################################################

@@ -1,0 +1,22 @@
+[colors]
+
+bar.background1 = #383C4A 
+bar.background2 = #2F343F
+widget.default.background = #505562
+
+group.active = #FFFFFF
+group.inactive = #A9A9A9
+
+group.icon.background = #505562
+group.icon.foreground = #ff0000
+
+apps.background = #505562
+
+window.name.foreground = #DDDDDD
+
+border.focus = #5294E2
+
+[fonts]
+
+
+[geometry]
