@@ -51,6 +51,7 @@ Plug 'tpope/vim-surround'
 
 " Vim Airline
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " NERDTree
 Plug 'preservim/nerdtree'
@@ -99,7 +100,7 @@ call plug#end()
 """ Current color scheme
 set background=dark
 colorscheme hybrid_material
-
+let g:airline_theme = "hybrid"
 """ Vim cursor support for Windows Terminal application
 if &term =~ '^xterm'
   " normal mode
