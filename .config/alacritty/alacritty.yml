@@ -39,7 +39,7 @@ colors:
     white:   '0x63686d'
 font:
   normal:
-    family: Monospace
+    family: DroidSansMono
     style: Regular
-  size: 13
+  size: 14
 background_opacity: 0.9

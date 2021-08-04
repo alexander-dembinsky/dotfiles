@@ -14,7 +14,6 @@ set list
 set listchars=tab:<-> " Highlight tabs and spaces
 set expandtab " Use spaces instead of tabs
 set nohlsearch " Do not highlight search results
-set clipboard=unnamed " Clipboard Copy/Paste
 set noeb vb t_vb= " Disable beeping
 
 set path+=** " Recursive file search
@@ -33,7 +32,8 @@ Plug 'junegunn/fzf.vim'
 " Color schemes ---
 Plug 'morhetz/gruvbox' " Gruvbox Color Scheme
 Plug 'wadackel/vim-dogrun'
-
+Plug 'kristijanhusak/vim-hybrid-material'
+ 
 " Git integration 
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -97,10 +97,8 @@ Plug 'vim-test/vim-test'
 call plug#end()
 
 """ Current color scheme
-"colorscheme gruvbox
-"set background=dark
-"
-colorscheme dogrun
+set background=dark
+colorscheme hybrid_material
 
 """ Vim cursor support for Windows Terminal application
 if &term =~ '^xterm'
