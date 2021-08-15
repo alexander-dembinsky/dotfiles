@@ -1,0 +1,19 @@
+# Terminal
+super + Return
+	alacritty
+
+# Web browser
+super + shift + f
+	firefox
+
+# File manager
+super + shift + Return
+	thunar
+
+# Pavucontrol
+super + shift + v
+	pavucontrol
+
+#reload sxhkd:
+super + shift + s
+    pkill -USR1 -x sxhkd
