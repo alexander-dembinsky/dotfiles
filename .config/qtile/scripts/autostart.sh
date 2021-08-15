@@ -17,3 +17,4 @@ run blueman-applet &
 run dunst -conf ~/.config/qtile/scripts/dunstrc &
 run nitrogen --restore &
 run variety &
+run conky -c ~/.config/qtile/scripts/conky.conf &

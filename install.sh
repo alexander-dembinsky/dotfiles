@@ -17,7 +17,8 @@ sudo pacman --noconfirm --needed -S git \
         nitrogen \
         sxhkd \
         gvim \
-        curl
+        curl \
+        conky
 
 script_dir="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
