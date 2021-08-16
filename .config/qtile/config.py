@@ -17,6 +17,10 @@ def disable_floating_for_group(qtile):
     for w in qtile.current_group.windows:
         w.cmd_disable_floating()
 
+def run_script(script_path):
+    script = os.path.expanduser(script_path)
+    subprocess.call([script])
+
 colors = {
         "sep": "#505050",
         "bar_background": "#333333",
@@ -136,14 +140,16 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.LaunchBar(padding=10, progs=[
-                    ("{home}/.config/qtile/img/launcher.png".format(home=home), "sh {home}/.config/qtile/scripts/app_menu.sh".format(home=home), "Apps menu"),
-                ]),
-                widget.LaunchBar(default_icon="{home}/.config/qtile/img/places.png".format(home=home), padding=10, progs=[
-                    ("Places","sh {home}/.config/qtile/scripts/places_menu.sh".format(home=home),"Places Menu"),
-                ]),
+                widget.Image(margin_x=10, margin_y=2, filename="{home}/.config/qtile/img/launcher.png".format(home=home), 
+                    mouse_callbacks={"Button1": lambda: run_script("~/.config/qtile/scripts/app_menu.sh") }
+                ),
+                widget.Image(margin_x=10, margin_y=2, filename="{home}/.config/qtile/img/places.png".format(home=home), 
+                    mouse_callbacks={"Button1": lambda: run_script("~/.config/qtile/scripts/places_menu.sh") }
+                ),
                 widget.LaunchBar(padding=10, progs=[
                     ("firefox","firefox","Firefix web browser"),
+                    ("gvim","alacritty -e vim","Text Editor"),
+                    ("teams","teams","MS Teams"),
                     ("steam","steam","Steam"),
                 ]),
                 widget.Sep(foreground=colors["sep"], padding=10),
@@ -165,17 +171,17 @@ screens = [
                     txt_maximized="🗖 ",
                 ),
                 widget.Sep(foreground=colors["sep"], padding=10),
-                widget.CurrentLayoutIcon(),
-                widget.Image(filename="{home}/.config/qtile/img/tile.svg".format(home=home), 
+                widget.CurrentLayoutIcon(scale=0.8),
+                widget.Image(margin_y=3, filename="{home}/.config/qtile/img/tile.svg".format(home=home), 
                     mouse_callbacks={"Button1": lambda: disable_floating_for_group(qtile) }
                 ),
                 widget.Sep(foreground=colors["sep"], padding=10),
                 widget.KeyboardLayout(configured_keyboards=["us","ru","ua"], fontsize=20),
                 widget.Systray(icon_size=26),
-                widget.Clock(format='%Y-%m-%d %a %I:%M %p', fontsize=18),
-                widget.LaunchBar(padding=10, progs=[
-                    ("{home}/.config/qtile/img/shutdown.png".format(home=home), "sh {home}/.config/qtile/scripts/shutdown_menu.sh".format(home=home), "Shutdown menu"),
-                ]),
+                widget.Clock(format='%d/%m/%Y %H:%M', fontsize=18),
+                widget.Image(margin_x=10, margin_y=6, filename="{home}/.config/qtile/img/shutdown.png".format(home=home), 
+                    mouse_callbacks={"Button1": lambda: run_script("~/.config/qtile/scripts/shutdown_menu.sh") }
+                ),
             ],
             30,
             background=colors["bar_background"]
@@ -221,6 +227,6 @@ wmname = "LG3D"
 
 @hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser('~/.config/qtile/scripts/autostart.sh')
-    subprocess.call([home])
+    script = os.path.expanduser('~/.config/qtile/scripts/autostart.sh')
+    subprocess.call([script])
 
