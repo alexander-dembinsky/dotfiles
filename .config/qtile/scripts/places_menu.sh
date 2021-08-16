@@ -7,7 +7,7 @@ Home,     $FILEMAN $HOME            , folder-home
 Downloads,$FILEMAN $HOME/Downloads  , folder-downloads
 Documents,$FILEMAN $HOME/Documents  , folder-documents
 Videos,   $FILEMAN $HOME/Videos     , folder-videos
-Music,    $FILEMAN $HOME/Music      , folder-videos
+Music,    $FILEMAN $HOME/Music      , folder-music
 Pictures, $FILEMAN $HOME/Pictures   , folder-pictures
 Dropbox,  $FILEMAN $HOME/Dropbox    , folder-dropbox
 ^sep()
