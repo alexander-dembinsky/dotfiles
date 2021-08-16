@@ -13,13 +13,22 @@ mod = "mod4"
 terminal = guess_terminal()
 home = os.path.expanduser('~')
 
+
 def disable_floating_for_group(qtile):
     for w in qtile.current_group.windows:
         w.cmd_disable_floating()
 
+
 def run_script(script_path):
     script = os.path.expanduser(script_path)
     subprocess.call([script])
+
+
+def close_active_window():
+    clicked_window = qtile.widgets_map["tasklist"].clicked
+    if clicked_window:
+        clicked_window.kill()
+
 
 colors = {
         "sep": "#505050",
@@ -169,6 +178,9 @@ screens = [
                     txt_floating="🗗 ",
                     txt_minimized="🗕 ",
                     txt_maximized="🗖 ",
+                    mouse_callbacks={
+                        "Button2": lambda: close_active_window()
+                    }
                 ),
                 widget.Sep(foreground=colors["sep"], padding=10),
                 widget.CurrentLayoutIcon(scale=0.8),
