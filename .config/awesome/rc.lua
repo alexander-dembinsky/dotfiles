@@ -263,6 +263,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "Print", function() awful.spawn.with_shell("maim -s -u | xclip -selection clipboard -t image/png -i") end, {description = "Take a screenshot of selected region"}),	      
+    awful.key({ modkey, "Shift"   }, "x", function() awful.spawn("arcolinux-logout") end, {description = "Logout screen"}),	      
 
     awful.key({ modkey,           }, "Tab", function () awful.layout.inc( 1)                end,
               {description = "select next", group = "layout"}),
