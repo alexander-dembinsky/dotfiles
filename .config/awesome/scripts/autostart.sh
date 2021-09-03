@@ -14,4 +14,4 @@ run blueberry-tray &
 run nitrogen --restore &
 run pamac-tray &
 run picom --conf ~/.config/awesome/scripts/picom.conf
-
+run cbatticon -i notification &
