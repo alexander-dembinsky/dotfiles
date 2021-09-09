@@ -46,7 +46,8 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 selected_theme = "default"
-beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), selected_theme))
+--beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), selected_theme))
+beautiful.init("/usr/share/awesome/themes/gtk/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
