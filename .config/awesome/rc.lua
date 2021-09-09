@@ -131,15 +131,7 @@ local tasklist_buttons = gears.table.join(
                                           end))
 
 local function set_wallpaper(s)
-    -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    end
+   awful.spawn.with_shell("nitrogen --restore")
 end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
@@ -186,13 +178,14 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             wibox.container.margin(s.mytaglist, 2, 2, 2, 2),
             s.mypromptbox,
-            wibox.container.margin(wibox.widget { widget = wibox.widget.separator, orientation = "vertical", forced_width=2 }, 4, 4, 4, 4),
+            wibox.container.margin(wibox.widget { widget = wibox.widget.separator, orientation = "vertical", forced_width=2 }, 2, 2, 8, 8),
         },
         wibox.container.margin(s.mytasklist, 4, 4, 4, 4), -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.container.margin(s.mylayoutbox, 6, 6, 6, 6),
             mykeyboardlayout,
+            wibox.container.margin(wibox.widget { widget = wibox.widget.separator, orientation = "vertical", forced_width=2 }, 2, 2, 8, 8),
             wibox.container.margin(wibox.widget.systray(), 4, 4, 4, 4),
             mytextclock,
         },
@@ -475,7 +468,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = false }
+      }, properties = { titlebars_enabled = true }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -498,39 +491,10 @@ client.connect_signal("manage", function (c)
         awful.placement.no_offscreen(c)
     end
    
-
-    -- Titlebars on floaring windows
-    if c.floating or c.first_tag.layout.name == "floating" then
-        awful.titlebar.show(c)
-    else
-        awful.titlebar.hide(c)
-    end
-
-    -- Rounded corners
     c.shape = function(cr,w,h)
-        gears.shape.rounded_rect(cr,w,h,5)
+        gears.shape.rounded_rect(cr,w,h,8)
     end
 end)
-
-client.connect_signal("property::floating", function(c)
-    if c.floating then
-        awful.titlebar.show(c)
-    else
-        awful.titlebar.hide(c)
-    end
-end)
-
-tag.connect_signal("property::layout", function(t)
-    local clients = t:clients()
-    for k,c in pairs(clients) do
-        if c.floating or c.first_tag.layout.name == "floating" then
-            awful.titlebar.show(c)
-        else
-            awful.titlebar.hide(c)
-        end
-    end
-end)
-
 
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
@@ -547,9 +511,9 @@ client.connect_signal("request::titlebars", function(c)
         end)
     )
 
-    awful.titlebar(c) : setup {
+    awful.titlebar(c, { size = 24 }) : setup {
         { -- Left
-            wibox.container.margin(awful.titlebar.widget.iconwidget(c), 4, 4, 4, 4),
+            wibox.container.margin(awful.titlebar.widget.iconwidget(c), 2, 2, 2, 2),
             buttons = buttons,
             layout  = wibox.layout.fixed.horizontal
         },
@@ -562,11 +526,11 @@ client.connect_signal("request::titlebars", function(c)
             layout  = wibox.layout.flex.horizontal
         },
         { -- Right
-            wibox.container.margin(awful.titlebar.widget.floatingbutton (c), 0, 6, 6, 6),
-            wibox.container.margin(awful.titlebar.widget.maximizedbutton(c), 0, 6, 6, 6),
+            wibox.container.margin(awful.titlebar.widget.floatingbutton (c), 0, 3, 3, 3),
+            wibox.container.margin(awful.titlebar.widget.maximizedbutton(c), 0, 3, 3, 3),
             --wibox.container.margin(awful.titlebar.widget.stickybutton   (c), 0, 6, 6, 6),
             --wibox.container.margin(awful.titlebar.widget.ontopbutton    (c), 0, 6, 6, 6),
-            wibox.container.margin(awful.titlebar.widget.closebutton    (c), 0, 6, 6, 6),
+            wibox.container.margin(awful.titlebar.widget.closebutton    (c), 0, 3, 3, 3),
             layout = wibox.layout.fixed.horizontal()
         },
         layout = wibox.layout.align.horizontal
