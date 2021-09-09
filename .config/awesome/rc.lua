@@ -49,7 +49,7 @@ selected_theme = "default"
 --beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), selected_theme))
 beautiful.init("/usr/share/awesome/themes/gtk/theme.lua")
 beautiful.border_width=1
-beautiful.border_focus="#ff33ff"
+beautiful.border_focus="#cccccc"
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "vim"
