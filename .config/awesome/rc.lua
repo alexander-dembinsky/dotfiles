@@ -48,7 +48,8 @@ end
 selected_theme = "default"
 --beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), selected_theme))
 beautiful.init("/usr/share/awesome/themes/gtk/theme.lua")
-
+beautiful.border_width=1
+beautiful.border_focus="#ff33ff"
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "vim"
@@ -157,7 +158,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
         screen  = s,
-        filter  = awful.widget.taglist.filter.noempty,
+        filter  = awful.widget.taglist.filter.all,
         buttons = taglist_buttons,
     }
 
@@ -341,12 +342,8 @@ clientkeys = gears.table.join(
         {description = "(un)maximize horizontally", group = "client"}),
 
     awful.key({ modkey, 'Control' }, 't',
-            function()
-               local t = awful.screen.focused().selected_tag
-               local clients = t:clients()
-               for i, c in ipairs(clients) do
+            function(c)
                   awful.titlebar.toggle(c)
-               end
             end,
         {description = 'toggle title bar', group = 'client'})
 )
@@ -468,7 +465,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
