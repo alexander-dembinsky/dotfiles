@@ -191,12 +191,9 @@ awful.screen.connect_for_each_screen(function(s)
         wibox.container.margin(s.mytasklist, 4, 4, 4, 4), -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.container.margin(wibox.widget { widget = wibox.widget.separator, orientation = "vertical", forced_width=2 }, 4, 4, 4, 4),
             wibox.container.margin(s.mylayoutbox, 6, 6, 6, 6),
             mykeyboardlayout,
-            wibox.container.margin(wibox.widget { widget = wibox.widget.separator, orientation = "vertical", forced_width=2 }, 4, 4, 4, 4),
             wibox.container.margin(wibox.widget.systray(), 4, 4, 4, 4),
-            wibox.container.margin(wibox.widget { widget = wibox.widget.separator, orientation = "vertical", forced_width=2 }, 4, 4, 4, 4),
             mytextclock,
         },
     }
