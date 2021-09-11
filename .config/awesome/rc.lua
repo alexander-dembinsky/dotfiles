@@ -49,7 +49,7 @@ selected_theme = "default"
 --beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), selected_theme))
 beautiful.init("/usr/share/awesome/themes/gtk/theme.lua")
 beautiful.border_width=1
-beautiful.border_focus="#cccccc"
+beautiful.border_focus="#ca4519"
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "vim"
@@ -261,6 +261,8 @@ globalkeys = gears.table.join(
               {description = "open a file manager", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "f", function () awful.spawn("firefox") end,
               {description = "open a web browser", group = "launcher"}),
+    awful.key({ modkey, "Shift"   }, "t", function () awful.spawn.with_shell("sh ~/.bin/tv") end,
+              {description = "TV menu", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "e", function () awful.spawn(terminal .. " -e ranger") end,
               {description = "open a web browser", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
@@ -345,7 +347,60 @@ clientkeys = gears.table.join(
             function(c)
                   awful.titlebar.toggle(c)
             end,
-        {description = 'toggle title bar', group = 'client'})
+        {description = 'toggle title bar', group = 'client'}),
+
+    -- Move floating windows
+    awful.key({ modkey, "Control"   }, "j",
+        function (c)
+                c:relative_move(0, 40, 0, 0 )
+        end ,
+        {description = "move down", group = "client"}),
+
+    awful.key({ modkey, "Control"   }, "k",
+        function (c)
+                c:relative_move(0, -40, 0, 0 )
+        end ,
+        {description = "move up", group = "client"}),
+
+    awful.key({ modkey, "Control"   }, "h",
+        function (c)
+                c:relative_move(-40, 0, 0, 0 )
+        end ,
+        {description = "move left", group = "client"}),
+
+    awful.key({ modkey, "Control"   }, "l",
+        function (c)
+                c:relative_move(40, 0, 0, 0 )
+        end ,
+        {description = "move right", group = "client"}),
+
+    -- Resize floating windows 
+
+    awful.key({ modkey, "Control", "Shift"   }, "j",
+        function (c)
+                c:relative_move(0, 0, 0, 40 )
+        end ,
+        {description = "resize down", group = "client"}),
+
+    awful.key({ modkey, "Control", "Shift"   }, "k",
+        function (c)
+                c:relative_move(0, 0, 0, -40 )
+        end ,
+        {description = "resize up", group = "client"}),
+
+
+    awful.key({ modkey, "Control", "Shift"   }, "h",
+        function (c)
+                c:relative_move(0, 0, -40, 0 )
+        end ,
+        {description = "resize left", group = "client"}),
+
+
+    awful.key({ modkey, "Control", "Shift"   }, "l",
+        function (c)
+                c:relative_move(0, 0, 40, 0 )
+        end ,
+        {description = "resize right", group = "client"})
 )
 
 -- Bind all key numbers to tags.
@@ -489,7 +544,7 @@ client.connect_signal("manage", function (c)
     end
    
     c.shape = function(cr,w,h)
-        gears.shape.rounded_rect(cr,w,h,8)
+        gears.shape.rounded_rect(cr,w,h,10)
     end
 end)
 

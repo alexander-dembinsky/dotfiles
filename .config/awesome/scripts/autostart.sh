@@ -7,11 +7,11 @@ function run {
   fi
 }
 
-run /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-run nm-applet &
-run volumeicon &
-run blueberry-tray &
-run nitrogen --restore &
-run pamac-tray &
+run /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 
+run nm-applet 
+run volumeicon 
+run blueberry-tray 
+run nitrogen --restore 
+run pamac-tray 
 run picom --conf ~/.config/awesome/scripts/picom.conf
-run cbatticon -i notification &
+run cbatticon -i notification 
