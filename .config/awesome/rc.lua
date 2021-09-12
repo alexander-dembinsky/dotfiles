@@ -263,6 +263,8 @@ globalkeys = gears.table.join(
               {description = "open a web browser", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "t", function () awful.spawn.with_shell("sh ~/.bin/tv") end,
               {description = "TV menu", group = "launcher"}),
+    awful.key({ modkey, "Shift"   }, "n", function () awful.spawn.with_shell("BROWSER=firefox " .. terminal .. " -e newsboat -r") end,
+              {description = "RSS News", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "e", function () awful.spawn(terminal .. " -e ranger") end,
               {description = "open a web browser", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
