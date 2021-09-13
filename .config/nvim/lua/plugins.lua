@@ -31,5 +31,9 @@ return require('packer').startup(function()
   use {
     'tpope/vim-fugitive'
   }
+  -- LSP
+  use { 
+    'neovim/nvim-lspconfig'
+  }
 end)
 
