@@ -14,5 +14,5 @@ map('n', '<leader>fd', ':lua require("telescope.builtin").git_files({cwd = "~/do
 map('n', '<leader>gd', ':Telescope lsp_definitions<CR>', default_opts)
 map('n', '<leader>gr', ':Telescope lsp_references<CR>', default_opts)
 map('n', '<leader>gi', ':Telescope lsp_implementations<CR>', default_opts)
-map('n', '<leader>gi', ':Telescope lsp_implementations<CR>', default_opts)
 map('n', '<leader>ge', ':Telescope lsp_document_diagnostics<CR>', default_opts)
+map('n', '<leader>gb', ':Telescope git_branches<CR>', default_opts)
