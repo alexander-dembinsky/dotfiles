@@ -15,18 +15,14 @@ keyboards=["us","ru"]
 keyboard_layout = widget.KeyboardLayout(configured_keyboards=keyboards)
 
 keys = [
-    Key([mod], "Tab", lazy.layout.next(),
-        desc="Move window focus to other window"),
-
-    Key([mod], "r", lazy.spawncmd(),
-        desc="Spawn a command using a prompt widget"),
-
-    Key([mod], "space", lazy.function(lambda qtile: keyboard_layout.next_keyboard()),
-        desc="Switch keyboard layout"),
+    Key([mod], "space", lazy.function(lambda qtile: keyboard_layout.next_keyboard()), desc="Switch keyboard layout"),
 
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     
+    Key([mod], "Tab", lazy.layout.next(), desc="Move window focus to other window"),
+    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod], "h", lazy.layout.left()),
     Key([mod], "l", lazy.layout.right()),
     Key([mod], "j", lazy.layout.down()),
@@ -44,6 +40,8 @@ keys = [
     Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating"),
     Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
 
+    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+
     # Programs
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod, "shift"], "Return", lazy.spawn("pcmanfm"), desc="File manager"),
@@ -51,30 +49,18 @@ keys = [
     Key([mod], "p", lazy.spawn("rofi -show drun"), desc="Launcher"),
     Key([mod, "shift"], "p", lazy.spawn("rofi -show run"), desc="Launcher"),
     Key([mod, "shift"], "n", lazy.spawn("alacritty -e newsboat"), desc="News"),
-
-    # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
-
-    Key([mod], "r", lazy.spawncmd(),
-        desc="Spawn a command using a prompt widget"),
+    Key([mod, "shift"], "x", lazy.spawn("arcolinux-logout"), desc="Logout"),
 ]
 
 groups = [Group(i) for i in "123456789"]
 
 for i in groups:
     keys.extend([
-        # mod1 + letter of group = switch to group
         Key([mod], i.name, lazy.group[i.name].toscreen(),
             desc="Switch to group {}".format(i.name)),
 
-        # mod1 + shift + letter of group = switch to & move focused window to group
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
             desc="Switch to & move focused window to group {}".format(i.name)),
-        # Or, use below if you prefer not to switch to that group.
-        # # mod1 + shift + letter of group = move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-        #     desc="move focused window to group {}".format(i.name)),
     ])
 
 layouts = [
@@ -127,25 +113,14 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='makebranch'),  # gitk
     Match(wm_class='maketag'),  # gitk
     Match(wm_class='ssh-askpass'),  # ssh-askpass
+    Match(wm_class='steam'),  # Steam
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
-
-# If things like steam games want to auto-minimize themselves when losing
-# focus, should we respect this or not?
 auto_minimize = True
-
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
 wmname = "LG3D"
 
 @hook.subscribe.startup_once
