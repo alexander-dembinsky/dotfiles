@@ -10,12 +10,19 @@ import subprocess
 mod = "mod4"
 terminal = guess_terminal()
 
+# Keyboard
+keyboards=["us","ru"]
+keyboard_layout = widget.KeyboardLayout(configured_keyboards=keyboards)
+
 keys = [
     Key([mod], "Tab", lazy.layout.next(),
         desc="Move window focus to other window"),
 
     Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
+
+    Key([mod], "space", lazy.function(lambda qtile: keyboard_layout.next_keyboard()),
+        desc="Switch keyboard layout"),
 
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
@@ -42,6 +49,8 @@ keys = [
     Key([mod, "shift"], "Return", lazy.spawn("pcmanfm"), desc="File manager"),
     Key([mod, "shift"], "f", lazy.spawn("firefox"), desc="Web browser"),
     Key([mod], "p", lazy.spawn("rofi -show drun"), desc="Launcher"),
+    Key([mod, "shift"], "p", lazy.spawn("rofi -show run"), desc="Launcher"),
+    Key([mod, "shift"], "n", lazy.spawn("alacritty -e newsboat"), desc="News"),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
@@ -88,7 +97,7 @@ screens = [
                 widget.Prompt(),
                 widget.TaskList(),
                 widget.CurrentLayoutIcon(scale=0.8),
-                widget.KeyboardLayout(configured_keyboards=["en","ru"]),
+                keyboard_layout,
                 widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
