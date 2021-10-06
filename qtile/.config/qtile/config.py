@@ -56,6 +56,7 @@ keys = [
     Key([mod, "shift"], "n", lazy.spawn("alacritty -e newsboat"), desc="News"),
     Key([mod, "shift"], "x", lazy.spawn("arcolinux-logout"), desc="Logout"),
     Key([mod, "shift"], "v", lazy.spawn("pavucontrol"), desc="Volume mixer"),
+    Key([mod, "shift"], "Print", lazy.spawn(os.path.expanduser("~/.config/qtile/screenshot")), desc="Screenshot"),
 ]
 
 groups = [Group(i) for i in "123456789"]
