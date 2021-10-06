@@ -42,6 +42,10 @@ keys = [
 
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 
+    Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 0 sset Master 1- unmute")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 0 sset Master 1+ unmute")),
+
     # Programs
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod, "shift"], "Return", lazy.spawn("pcmanfm"), desc="File manager"),
@@ -50,6 +54,7 @@ keys = [
     Key([mod, "shift"], "p", lazy.spawn("rofi -show run"), desc="Launcher"),
     Key([mod, "shift"], "n", lazy.spawn("alacritty -e newsboat"), desc="News"),
     Key([mod, "shift"], "x", lazy.spawn("arcolinux-logout"), desc="Logout"),
+    Key([mod, "shift"], "v", lazy.spawn("pavucontrol"), desc="Volume mixer"),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -114,6 +119,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='maketag'),  # gitk
     Match(wm_class='ssh-askpass'),  # ssh-askpass
     Match(wm_class='steam'),  # Steam
+    Match(wm_class='pavucontrol'),  # Volume mixer
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
 ])
