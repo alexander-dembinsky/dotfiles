@@ -1,9 +1,9 @@
 from typing import List  # noqa: F401
 
-from libqtile import bar, layout, widget, hook
+from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
+from libqtile.utils import guess_terminal, logger
 import os
 import subprocess
 
@@ -82,6 +82,15 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+def show_popup_calendar():
+    screen_width = screens[0].width
+    calendar_width = 400
+    calendar_height = 300
+    x = screen_width - calendar_width
+
+    qtile.cmd_spawn(["python", os.path.expanduser("~/.config/qtile/popup_calendar.py"), "--x", str(x), "--width", str(calendar_width), "--height", str(calendar_height)])
+
+
 screens = [
     Screen(
         top=bar.Bar(
@@ -92,12 +101,18 @@ screens = [
                 widget.CurrentLayoutIcon(scale=0.8),
                 keyboard_layout,
                 widget.Systray(),
-                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
+                widget.Clock(
+                    format='%Y-%m-%d %a %I:%M %p', 
+                    mouse_callbacks={
+                        "Button1": show_popup_calendar
+                    }
+                ),
             ],
             32,
         ),
     ),
 ]
+
 
 # Drag floating layouts.
 mouse = [
@@ -124,6 +139,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='pavucontrol'),  # Volume mixer
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
+    Match(wm_class='popup_calendar.py'), # popup_calendar
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
