@@ -20,7 +20,6 @@ keys = [
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     
-    Key([mod], "Tab", lazy.layout.next(), desc="Move window focus to other window"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod], "h", lazy.layout.left()),
@@ -36,6 +35,7 @@ keys = [
     Key([mod], "n", lazy.layout.normalize()),
     Key([mod], "o", lazy.layout.maximize()),
     Key([mod, "shift"], "space", lazy.layout.flip()),
+    Key([mod], "Tab", lazy.next_layout(), desc="Move window focus to other window"),
 
     Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating"),
     Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
