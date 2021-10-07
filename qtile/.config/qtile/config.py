@@ -66,6 +66,7 @@ keys = [
     Key([mod, "shift"], "v", lazy.spawn("pavucontrol"), desc="Volume mixer"),
     Key([mod, "shift"], "c", lazy.function(show_popup_calendar), desc="Popup calendar"),
     Key([mod, "shift"], "Print", lazy.spawn(os.path.expanduser("~/.config/qtile/screenshot")), desc="Screenshot"),
+    Key([mod, "shift"], "a", lazy.spawn("arandr"), desc="Screen configuration"),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -141,6 +142,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
     Match(wm_class='popup_calendar.py'), # popup_calendar
+    Match(wm_class='arandr'), # ARandr
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
