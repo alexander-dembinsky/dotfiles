@@ -19,6 +19,11 @@ class CalendarWindow(Gtk.Window):
         self.calendar = Gtk.Calendar()
         self.add(self.calendar)
 
+def on_key_pressed(_, e):
+    _, key_val = e.get_keyval()
+    if key_val == Gdk.KEY_Escape:
+        Gtk.main_quit()
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--x', type=int)
@@ -30,9 +35,9 @@ args = parser.parse_args()
 win = CalendarWindow()
 win.connect("destroy", Gtk.main_quit)
 win.connect("focus-out-event", Gtk.main_quit)
+win.connect("key-press-event", on_key_pressed)
 win.set_size_request(args.width or 300, args.height or 300)
 
 win.move(args.x or 0, args.y or 0)
-
 win.show_all()
 Gtk.main()

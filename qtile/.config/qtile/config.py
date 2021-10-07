@@ -14,6 +14,14 @@ terminal = guess_terminal()
 keyboards=["us","ru"]
 keyboard_layout = widget.KeyboardLayout(configured_keyboards=keyboards)
 
+def show_popup_calendar(_=None):
+    screen_width = screens[0].width
+    calendar_width = 400
+    calendar_height = 300
+    x = screen_width - calendar_width
+
+    qtile.cmd_spawn(["python", os.path.expanduser("~/.config/qtile/popup_calendar.py"), "--x", str(x), "--width", str(calendar_width), "--height", str(calendar_height)])
+
 keys = [
     Key([mod], "space", lazy.function(lambda qtile: keyboard_layout.next_keyboard()), desc="Switch keyboard layout"),
 
@@ -56,6 +64,7 @@ keys = [
     Key([mod, "shift"], "n", lazy.spawn("alacritty -e newsboat"), desc="News"),
     Key([mod, "shift"], "x", lazy.spawn("arcolinux-logout"), desc="Logout"),
     Key([mod, "shift"], "v", lazy.spawn("pavucontrol"), desc="Volume mixer"),
+    Key([mod, "shift"], "c", lazy.function(show_popup_calendar), desc="Popup calendar"),
     Key([mod, "shift"], "Print", lazy.spawn(os.path.expanduser("~/.config/qtile/screenshot")), desc="Screenshot"),
 ]
 
@@ -81,14 +90,6 @@ widget_defaults = dict(
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
-
-def show_popup_calendar():
-    screen_width = screens[0].width
-    calendar_width = 400
-    calendar_height = 300
-    x = screen_width - calendar_width
-
-    qtile.cmd_spawn(["python", os.path.expanduser("~/.config/qtile/popup_calendar.py"), "--x", str(x), "--width", str(calendar_width), "--height", str(calendar_height)])
 
 
 screens = [
@@ -126,7 +127,7 @@ mouse = [
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = False
-bring_front_click = False
+bring_front_click = "floating_only"
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
@@ -147,7 +148,19 @@ reconfigure_screens = True
 auto_minimize = True
 wmname = "LG3D"
 
+
+
 @hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.call([home])
+
+
+@hook.subscribe.client_focus
+def func(c):
+    info = c.cmd_inspect()
+    if "popup_calendar.py" in info['wm_class']:
+        (x, y) = c.cmd_get_position()
+        (width, height) = c.cmd_get_size()
+        c.cmd_place(x, y, width, height, 0, "#ffffff")
+
