@@ -66,6 +66,7 @@ keys = [
     Key([mod, "shift"], "v", lazy.spawn("pavucontrol"), desc="Volume mixer"),
     Key([mod, "shift"], "c", lazy.function(show_popup_calendar), desc="Popup calendar"),
     Key([mod, "shift"], "Print", lazy.spawn(os.path.expanduser("~/.config/qtile/screenshot")), desc="Screenshot"),
+    Key([mod], "F5", lazy.spawn(os.path.expanduser("~/.bin/tv")), desc="TV script"),
     Key([mod, "shift"], "a", lazy.spawn("arandr"), desc="Screen configuration"),
 ]
 
@@ -81,7 +82,7 @@ for i in groups:
     ])
 
 layouts = [
-    layout.MonadTall(border_focus=['#dddddd'], border_width=1, margin=4),
+    layout.MonadTall(border_focus=['#4e94e2'], border_width=1, margin=4),
     layout.Max()
 ]
 
@@ -111,6 +112,7 @@ screens = [
                 ),
             ],
             32,
+            background="#2B2E3F"
         ),
     ),
 ]
