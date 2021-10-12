@@ -41,6 +41,7 @@ keys = [
     Key([mod, "shift"], "space", lazy.layout.flip()),
     Key([mod], "Tab", lazy.next_layout(), desc="Move window focus to other window"),
 
+    Key([mod], "b", lazy.hide_show_bar("top")),
     Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating"),
     Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
 
@@ -49,6 +50,7 @@ keys = [
     Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 0 sset Master 1- unmute")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 0 sset Master 1+ unmute")),
+
 
     # Programs
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
@@ -102,7 +104,7 @@ def gen_inline_calendar():
         elif next_day.weekday() >= 5:
            cal += "<span color='red'>{day}</span> ".format(day=next_day.day)
         else:
-           cal += "{day} ".format(day=next_day.day)
+           cal += "<span>{day}</span> ".format(day=next_day.day)
 
     return cal
 
@@ -110,23 +112,27 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(),
-                widget.Prompt(),
+                widget.GroupBox(inactive="#aaaaaa"),
+                widget.Sep(size_percent=60),
+                widget.Prompt(prompt='> ', fmt='<span color="green"><b>{}</b></span>'),
                 widget.TaskList(),
-                widget.CurrentLayoutIcon(scale=0.8),
+                widget.Sep(size_percent=60),
+                widget.CurrentLayoutIcon(scale=0.6),
                 keyboard_layout,
+                widget.Sep(size_percent=60),
                 widget.Systray(),
                 widget.Sep(size_percent=60),
-                widget.GenPollText(func=gen_inline_calendar, interval=60, 
+                widget.TextBox("📅", mouse_callbacks={
+                        "Button1": show_popup_calendar
+                }),
+                widget.GenPollText(func=gen_inline_calendar, interval=60, fontsize=16,
                     mouse_callbacks={
                         "Button1": show_popup_calendar
                     }
                 ), # Inline calendar
                 widget.Sep(size_percent=60),
-                widget.Clock(
-                    format='%m-%d-%y %H:%M', 
-                    fmt='<b>{}</b>'
-                ),
+                widget.TextBox(text="🕑"),
+                widget.Clock(format='%m-%d-%y\n%H:%M', fontsize=13),
             ],
             32,
             background="#2B2E3F"
