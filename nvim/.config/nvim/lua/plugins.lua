@@ -5,6 +5,7 @@ return require('packer').startup(function()
 
   -- Colorscheme
   use 'kristijanhusak/vim-hybrid-material'
+  use 'rakr/vim-one'
   -- Nvim tree
   use {
     'kyazdani42/nvim-tree.lua',

@@ -12,5 +12,5 @@ vim.opt.termguicolors = true
 
 vim.g.airline_theme = "hybrid"
 vim.cmd [[
-colorscheme hybrid_material
+colorscheme one
 ]]
