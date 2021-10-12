@@ -1,5 +1,4 @@
 import gi
-import argparse
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
@@ -25,19 +24,11 @@ def on_key_pressed(_, e):
         Gtk.main_quit()
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--x', type=int)
-parser.add_argument('--y', type=int)
-parser.add_argument('--width', type=int)
-parser.add_argument('--height', type=int)
-args = parser.parse_args()
-
 win = CalendarWindow()
 win.connect("destroy", Gtk.main_quit)
 win.connect("focus-out-event", Gtk.main_quit)
 win.connect("key-press-event", on_key_pressed)
-win.set_size_request(args.width or 300, args.height or 300)
+win.set_size_request(300, 300)
 
-win.move(args.x or 0, args.y or 0)
 win.show_all()
 Gtk.main()

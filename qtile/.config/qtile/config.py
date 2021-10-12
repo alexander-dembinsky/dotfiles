@@ -6,6 +6,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal, logger
 import os
 import subprocess
+import datetime
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -15,12 +16,7 @@ keyboards=["us","ru"]
 keyboard_layout = widget.KeyboardLayout(configured_keyboards=keyboards)
 
 def show_popup_calendar(_=None):
-    screen_width = screens[0].width
-    calendar_width = 400
-    calendar_height = 300
-    x = screen_width - calendar_width
-
-    qtile.cmd_spawn(["python", os.path.expanduser("~/.config/qtile/popup_calendar.py"), "--x", str(x), "--width", str(calendar_width), "--height", str(calendar_height)])
+    qtile.cmd_spawn(["python", os.path.expanduser("~/.config/qtile/popup_calendar.py")])
 
 keys = [
     Key([mod], "space", lazy.function(lambda qtile: keyboard_layout.next_keyboard()), desc="Switch keyboard layout"),
@@ -93,6 +89,22 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+def gen_inline_calendar():
+    today = datetime.date.today()
+    last_monday = today - datetime.timedelta(days=today.weekday())
+    
+    cal = ""
+    for i in range(0, 7):
+        next_day = last_monday + datetime.timedelta(days=i)
+
+        if next_day == today:
+           cal += "<b><span color='green'>{day}</span></b> ".format(day=next_day.day)
+        elif next_day.weekday() >= 5:
+           cal += "<span color='red'>{day}</span> ".format(day=next_day.day)
+        else:
+           cal += "{day} ".format(day=next_day.day)
+
+    return cal
 
 screens = [
     Screen(
@@ -104,11 +116,16 @@ screens = [
                 widget.CurrentLayoutIcon(scale=0.8),
                 keyboard_layout,
                 widget.Systray(),
-                widget.Clock(
-                    format='%Y-%m-%d %a %I:%M %p', 
+                widget.Sep(size_percent=60),
+                widget.GenPollText(func=gen_inline_calendar, interval=60, 
                     mouse_callbacks={
                         "Button1": show_popup_calendar
                     }
+                ), # Inline calendar
+                widget.Sep(size_percent=60),
+                widget.Clock(
+                    format='%m-%d-%y %H:%M', 
+                    fmt='<b>{}</b>'
                 ),
             ],
             32,
