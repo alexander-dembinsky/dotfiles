@@ -95,6 +95,9 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+                widget.Image(filename='~/.config/qtile/launcher.svg', mouse_callbacks={
+                    'Button1': lambda: qtile.cmd_spawn("xfce4-appfinder")
+                }),
                 widget.GroupBox(inactive="#aaaaaa"),
                 widget.Sep(size_percent=60),
                 widget.Prompt(prompt='> ', fmt='<span color="green"><b>{}</b></span>'),
@@ -148,6 +151,7 @@ floating_layout = layout.Floating(border_focus='#aaaaaa', float_rules=[
     Match(title='pinentry'),  # GPG key password entry
     Match(wm_class='popup_calendar.py'), # popup_calendar
     Match(wm_class='arandr'), # ARandr
+    Match(wm_class="xfce4-appfinder"),
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
