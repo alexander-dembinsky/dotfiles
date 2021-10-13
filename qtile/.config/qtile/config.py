@@ -6,7 +6,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal, logger
 import os
 import subprocess
-import datetime
+from inline_calendar import InlineCalendar
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -91,23 +91,6 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-def gen_inline_calendar():
-    today = datetime.date.today()
-    last_monday = today - datetime.timedelta(days=today.weekday())
-    
-    cal = ""
-    for i in range(0, 7):
-        next_day = last_monday + datetime.timedelta(days=i)
-
-        if next_day == today:
-           cal += "<b><span color='green'>{day}</span></b> ".format(day=next_day.day)
-        elif next_day.weekday() >= 5:
-           cal += "<span color='red'>{day}</span> ".format(day=next_day.day)
-        else:
-           cal += "<span>{day}</span> ".format(day=next_day.day)
-
-    return cal
-
 screens = [
     Screen(
         top=bar.Bar(
@@ -122,17 +105,10 @@ screens = [
                 widget.Sep(size_percent=60),
                 widget.Systray(),
                 widget.Sep(size_percent=60),
-                widget.TextBox("📅", mouse_callbacks={
-                        "Button1": show_popup_calendar
-                }),
-                widget.GenPollText(func=gen_inline_calendar, interval=60, fontsize=16,
-                    mouse_callbacks={
-                        "Button1": show_popup_calendar
-                    }
-                ), # Inline calendar
+                InlineCalendar(mouse_callbacks={'Button1': show_popup_calendar}),
                 widget.Sep(size_percent=60),
                 widget.TextBox(text="🕑"),
-                widget.Clock(format='%m-%d-%y\n%H:%M', fontsize=13),
+                widget.Clock(format='<span size="xx-small"><tt>%m-%d-%y</tt></span>\n<span size="medium"><tt>%H:%M</tt></span>'),
             ],
             32,
             background="#2B2E3F"
