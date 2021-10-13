@@ -65,6 +65,7 @@ keys = [
     Key([mod, "shift"], "c", lazy.function(show_popup_calendar), desc="Popup calendar"),
     Key([mod, "shift"], "Print", lazy.spawn(os.path.expanduser("~/.config/qtile/screenshot")), desc="Screenshot"),
     Key([mod], "F5", lazy.spawn(os.path.expanduser("~/.bin/tv")), desc="TV script"),
+    Key([mod], "F2", lazy.spawn(os.path.expanduser("~/.config/qtile/edit_config.sh")), desc="TV script"),
     Key([mod, "shift"], "a", lazy.spawn("arandr"), desc="Screen configuration"),
 ]
 
