@@ -96,20 +96,13 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.Image(filename='~/.config/qtile/launcher.svg', mouse_callbacks={
-                    'Button1': lambda: qtile.cmd_spawn("xfce4-appfinder")
-                }),
                 widget.GroupBox(inactive="#aaaaaa"),
                 widget.Sep(size_percent=60),
                 widget.Prompt(prompt='> ', fmt='<span color="green"><b>{}</b></span>'),
                 widget.TaskList(),
-                widget.Image(margin=5, filename='~/.config/qtile/close.svg', mouse_callbacks={
-                    'Button1': lambda: qtile.current_window.cmd_kill()
-                }),
                 widget.Sep(size_percent=60),
                 widget.CurrentLayoutIcon(scale=0.6),
                 keyboard_layout,
-                widget.Sep(size_percent=60),
                 widget.Systray(),
                 widget.Sep(size_percent=60),
                 InlineCalendar(mouse_callbacks={'Button1': show_popup_calendar}),
