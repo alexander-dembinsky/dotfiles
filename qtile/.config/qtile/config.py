@@ -86,8 +86,8 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='Noto Sans',
-    fontsize=16,
+    font='Monospace',
+    fontsize=18,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
@@ -96,19 +96,19 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(inactive="#aaaaaa"),
+                widget.GroupBox(inactive="#aaaaaa", highlight_method='block'),
                 widget.Sep(size_percent=60),
-                widget.Prompt(prompt='> ', fmt='<span color="green"><b>{}</b></span>'),
-                widget.TaskList(),
+                widget.Prompt(prompt='$', fmt='<span color="green"><b>{}</b></span>'),
+                widget.TaskList(icon_size=24, highlight_method='block', markup_floating='<i>{}</i>', markup_minimized='<s>{}</s>', title_width_method='uniform'),
                 widget.Sep(size_percent=60),
-                widget.CurrentLayoutIcon(scale=0.6),
+                widget.CurrentLayoutIcon(scale=0.5),
                 keyboard_layout,
                 widget.Systray(),
                 widget.Sep(size_percent=60),
-                InlineCalendar(mouse_callbacks={'Button1': show_popup_calendar}),
+                InlineCalendar(fontsize=14, mouse_callbacks={'Button1': show_popup_calendar}),
                 widget.Sep(size_percent=60),
                 widget.TextBox(text="🕑"),
-                widget.Clock(format='<span size="xx-small"><tt>%m-%d-%y</tt></span>\n<span size="medium"><tt>%H:%M</tt></span>'),
+                widget.Clock(fontsize=14, format='<span size="x-small">%m-%d-%y</span>\n<span size="medium"><tt>%H:%M</tt></span>'),
             ],
             32,
             background="#2B2E3F"
@@ -124,9 +124,9 @@ mouse = [
     Drag([mod], "Button3", lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front()),
-    Drag([], "Button8", lazy.window.set_position_floating(),
+    Drag([], "Button9", lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
-    Drag([], "Button9", lazy.window.set_size_floating(),
+    Drag([], "Button8", lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
 ]
 
@@ -135,7 +135,7 @@ dgroups_app_rules = []  # type: List
 follow_mouse_focus = False
 bring_front_click = "floating_only"
 cursor_warp = False
-floating_layout = layout.Floating(border_focus='#aaaaaa', float_rules=[
+floating_layout = layout.Floating(border_focus='#4e94e2', float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     *layout.Floating.default_float_rules,
     Match(wm_class='confirmreset'),  # gitk
