@@ -56,6 +56,7 @@ keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod, "shift"], "Return", lazy.spawn("pcmanfm"), desc="File manager"),
     Key([mod, "shift"], "f", lazy.spawn("firefox"), desc="Web browser"),
+    Key([mod, "shift"], "b", lazy.spawn("brave"), desc="Web browser"),
     Key([mod], "p", lazy.spawn("rofi -show-icons -show drun"), desc="Launcher"),
     Key([mod, "shift"], "p", lazy.spawn("rofi -show-icons -show run"), desc="Launcher"),
     Key([mod, "shift"], "w", lazy.spawn("rofi -show window"), desc="Window switcher"),
