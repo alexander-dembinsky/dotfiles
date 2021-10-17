@@ -18,6 +18,14 @@ keyboard_layout = widget.KeyboardLayout(configured_keyboards=keyboards)
 def show_popup_calendar(_=None):
     qtile.cmd_spawn(["python", os.path.expanduser("~/.config/qtile/popup_calendar.py")])
 
+colors = {
+    "bar": ["#2B2E3F"],
+    "tasklist_focus": ["#0e3e67"],
+    "group_highlight": ["#0e3e67"],
+    "group_active": ["#eeeeee"],
+    "group_inactive": ["#aaaaaa"]
+}
+
 keys = [
     Key([mod], "space", lazy.function(lambda qtile: keyboard_layout.next_keyboard()), desc="Switch keyboard layout"),
 
@@ -97,10 +105,10 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(inactive="#aaaaaa", highlight_method='block'),
+                widget.GroupBox(highlight_color=colors["group_highlight"], active=colors["group_active"], inactive=colors["group_inactive"], highlight_method='line'),
                 widget.Sep(size_percent=60),
                 widget.Prompt(prompt='$', fmt='<span color="green"><b>{}</b></span>'),
-                widget.TaskList(icon_size=24, highlight_method='block', markup_floating='<i>{}</i>', markup_minimized='<s>{}</s>', title_width_method='uniform'),
+                widget.TaskList(border=colors["tasklist_focus"], icon_size=24, highlight_method='block', markup_floating='<i>{}</i>', markup_minimized='<s>{}</s>', title_width_method='uniform'),
                 widget.Sep(size_percent=60),
                 widget.CurrentLayoutIcon(scale=0.5),
                 keyboard_layout,
@@ -112,7 +120,7 @@ screens = [
                 widget.Clock(fontsize=14, format='<span size="x-small">%m-%d-%y</span>\n<span size="medium"><tt>%H:%M</tt></span>'),
             ],
             32,
-            background="#2B2E3F"
+            background=colors["bar"]
         ),
     ),
 ]
