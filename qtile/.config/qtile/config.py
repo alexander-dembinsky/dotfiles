@@ -16,7 +16,7 @@ keyboards=["us","ru"]
 keyboard_layout = widget.KeyboardLayout(configured_keyboards=keyboards)
 
 def show_popup_calendar(_=None):
-    qtile.cmd_spawn(["python", os.path.expanduser("~/.config/qtile/popup_calendar.py")])
+    qtile.cmd_spawn(["zenity", "--class", "popup_calendar", "--calendar", "--text", ""])
 
 float_new_clients = False
 
@@ -163,7 +163,7 @@ floating_layout = layout.Floating(border_focus='#4e94e2', float_rules=[
     Match(wm_class='pavucontrol'),  # Volume mixer
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
-    Match(wm_class='popup_calendar.py'), # popup_calendar
+    Match(wm_class='popup_calendar'), # popup_calendar
     Match(wm_class='arandr'), # ARandr
     Match(wm_class="xfce4-appfinder"),
 ])
