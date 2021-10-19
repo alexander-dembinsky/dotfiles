@@ -7,7 +7,6 @@ from libqtile.utils import guess_terminal, logger
 import os
 import subprocess
 from inline_calendar import InlineCalendar
-
 mod = "mod4"
 terminal = guess_terminal()
 
@@ -95,7 +94,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='Monospace',
+    font='Cantarell',
     fontsize=18,
     padding=3,
 )
@@ -108,19 +107,19 @@ screens = [
                 widget.GroupBox(highlight_color=colors["group_highlight"], active=colors["group_active"], inactive=colors["group_inactive"], highlight_method='line'),
                 widget.Sep(size_percent=60),
                 widget.Prompt(prompt='$', fmt='<span color="green"><b>{}</b></span>'),
-                widget.TaskList(border=colors["tasklist_focus"], icon_size=24, highlight_method='block', markup_floating='<i>{}</i>', markup_minimized='<s>{}</s>', title_width_method='uniform'),
+                widget.TaskList(border=colors["tasklist_focus"], icon_size=24, highlight_method='block', markup_floating='<i>{}</i>', markup_minimized='<s>{}</s>'),
                 widget.Sep(size_percent=60),
                 widget.CurrentLayoutIcon(scale=0.5),
                 keyboard_layout,
                 widget.Systray(),
                 widget.Sep(size_percent=60),
-                InlineCalendar(fontsize=14, mouse_callbacks={'Button1': show_popup_calendar}),
+                InlineCalendar(fontsize=16, mouse_callbacks={'Button1': show_popup_calendar}),
                 widget.Sep(size_percent=60),
                 widget.TextBox(text="🕑"),
                 widget.Clock(fontsize=14, format='<span size="x-small">%m-%d-%y</span>\n<span size="medium"><tt>%H:%M</tt></span>'),
             ],
             32,
-            background=colors["bar"]
+            background=colors["bar"],
         ),
     ),
 ]
