@@ -10,12 +10,20 @@ from inline_calendar import InlineCalendar
 mod = "mod4"
 terminal = guess_terminal()
 
+
 # Keyboard
 keyboards=["us","ru"]
 keyboard_layout = widget.KeyboardLayout(configured_keyboards=keyboards)
 
 def show_popup_calendar(_=None):
     qtile.cmd_spawn(["python", os.path.expanduser("~/.config/qtile/popup_calendar.py")])
+
+float_new_clients = False
+
+def toggle_float_new_clients(_=None):
+    global float_new_clients
+    float_new_clients = not float_new_clients
+
 
 colors = {
     "bar": ["#2B2E3F"],
@@ -74,6 +82,7 @@ keys = [
     Key([mod, "shift"], "Print", lazy.spawn(os.path.expanduser("~/.config/qtile/screenshot")), desc="Screenshot"),
     Key([mod], "F5", lazy.spawn(os.path.expanduser("~/.bin/tv")), desc="TV script"),
     Key([mod], "F2", lazy.spawn(os.path.expanduser("~/.config/qtile/edit_config.sh")), desc="TV script"),
+    Key([mod], "F12", lazy.function(toggle_float_new_clients), desc="Toggle floating mode for new clients"),
     Key([mod, "shift"], "a", lazy.spawn("arandr"), desc="Screen configuration"),
 ]
 
@@ -165,18 +174,12 @@ auto_minimize = True
 wmname = "LG3D"
 
 
-
 @hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.call([home])
 
 
-@hook.subscribe.client_focus
-def func(c):
-    info = c.cmd_inspect()
-    if "popup_calendar.py" in info['wm_class']:
-        (x, y) = c.cmd_get_position()
-        (width, height) = c.cmd_get_size()
-        c.cmd_place(x, y, width, height, 0, "#ffffff")
-
+@hook.subscribe.client_new
+def on_client_new(c):
+    c.floating = float_new_clients
