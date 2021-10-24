@@ -4,7 +4,7 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   -- Colorscheme
-  use 'kristijanhusak/vim-hybrid-material'
+  use 'tomasiser/vim-code-dark'
   use 'rakr/vim-one'
   -- Nvim tree
   use {
