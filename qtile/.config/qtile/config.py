@@ -26,7 +26,7 @@ def toggle_float_new_clients(_=None):
 
 
 colors = {
-    "bar": ["#2B2E3F"],
+    "bar": ["#232729"],
     "tasklist_focus": ["#0e3e67"],
     "group_highlight": ["#0e3e67"],
     "group_active": ["#eeeeee"],
