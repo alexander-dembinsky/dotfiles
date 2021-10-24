@@ -15,5 +15,5 @@ run nm-applet
 run blueberry-tray 
 run nitrogen --restore 
 run pamac-tray 
-run picom --conf ~/.config/qtile/picom.conf
+run picom --experimental-backends --conf ~/.config/qtile/picom.conf
 #run cbatticon -i notification 

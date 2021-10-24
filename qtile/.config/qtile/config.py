@@ -128,8 +128,9 @@ screens = [
                 widget.TextBox(text="🕑"),
                 widget.Clock(fontsize=14, format='<span size="x-small">%m-%d-%y</span>\n<span size="medium"><tt>%H:%M</tt></span>'),
             ],
-            32,
+            30,
             background=colors["bar"],
+            opacity=0.8
         ),
     ),
 ]
