@@ -180,7 +180,3 @@ def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.call([home])
 
-
-@hook.subscribe.client_new
-def on_client_new(c):
-    c.floating = float_new_clients
