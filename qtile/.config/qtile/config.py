@@ -63,8 +63,8 @@ keys = [
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 
     Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 0 sset Master 1- unmute")),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 0 sset Master 1+ unmute")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -D default sset Master 5%- unmute")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -D default sset Master 5%+ unmute")),
 
 
     # Programs
@@ -120,7 +120,7 @@ screens = [
                 widget.Sep(size_percent=60),
                 widget.CurrentLayoutIcon(scale=0.5),
                 keyboard_layout,
-                widget.Volume(emoji=True, step=5),
+                widget.Volume(emoji=True, step=5, volume_app="pavucontrol"),
                 widget.Systray(),
                 widget.Sep(size_percent=60),
                 InlineCalendar(fontsize=16, mouse_callbacks={'Button1': show_popup_calendar}),
