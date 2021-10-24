@@ -72,11 +72,11 @@ keys = [
     Key([mod, "shift"], "Return", lazy.spawn("pcmanfm"), desc="File manager"),
     Key([mod, "shift"], "f", lazy.spawn("firefox"), desc="Web browser"),
     Key([mod, "shift"], "b", lazy.spawn("brave"), desc="Web browser"),
-    Key([mod], "p", lazy.spawn("rofi -show-icons -show drun"), desc="Launcher"),
-    Key([mod, "shift"], "p", lazy.spawn("rofi -show-icons -show run"), desc="Launcher"),
-    Key([mod, "shift"], "w", lazy.spawn("rofi -show window"), desc="Window switcher"),
+    Key([mod], "p", lazy.spawn("rofi -show-icons -show drun -matching fuzzy"), desc="Launcher"),
+    Key([mod, "shift"], "p", lazy.spawn("rofi -show-icons -show run -matching fuzzy"), desc="Launcher"),
+    Key([mod, "shift"], "w", lazy.spawn("rofi -show window -matching fuzzy"), desc="Window switcher"),
     Key([mod, "shift"], "n", lazy.spawn("alacritty -e newsboat"), desc="News"),
-    Key([mod, "shift"], "x", lazy.spawn("arcolinux-logout"), desc="Logout"),
+    Key([mod, "shift"], "x", lazy.spawn(os.path.expanduser("~/.config/qtile/logout.sh")), desc="Logout"),
     Key([mod, "shift"], "v", lazy.spawn("pavucontrol"), desc="Volume mixer"),
     Key([mod, "shift"], "c", lazy.function(show_popup_calendar), desc="Popup calendar"),
     Key([mod, "shift"], "Print", lazy.spawn(os.path.expanduser("~/.config/qtile/screenshot")), desc="Screenshot"),
@@ -98,7 +98,7 @@ for i in groups:
     ])
 
 layouts = [
-    layout.MonadTall(border_focus=['#4e94e2'], border_width=1, margin=4),
+    layout.MonadTall(border_focus=['#4e94e2'], border_width=1, margin=10),
     layout.Max()
 ]
 
@@ -120,6 +120,7 @@ screens = [
                 widget.Sep(size_percent=60),
                 widget.CurrentLayoutIcon(scale=0.5),
                 keyboard_layout,
+                widget.Volume(emoji=True, step=5),
                 widget.Systray(),
                 widget.Sep(size_percent=60),
                 InlineCalendar(fontsize=16, mouse_callbacks={'Button1': show_popup_calendar}),

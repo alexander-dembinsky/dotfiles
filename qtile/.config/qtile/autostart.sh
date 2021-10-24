@@ -7,11 +7,13 @@ function run {
   fi
 }
 
+# Disable TV by default
+test -e ~/.bin/tv && ~/.bin/tv off
+
 run /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 
 run nm-applet 
-run volumeicon 
 run blueberry-tray 
 run nitrogen --restore 
 run pamac-tray 
 run picom --conf ~/.config/qtile/picom.conf
-run cbatticon -i notification 
+#run cbatticon -i notification 
