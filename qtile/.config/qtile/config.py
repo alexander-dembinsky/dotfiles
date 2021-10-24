@@ -130,7 +130,7 @@ screens = [
             ],
             30,
             background=colors["bar"],
-            opacity=0.8
+            opacity=0.8,
         ),
     ),
 ]
@@ -148,7 +148,6 @@ mouse = [
     Drag([], "Button8", lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
 ]
-
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = False
