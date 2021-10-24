@@ -18,13 +18,6 @@ keyboard_layout = widget.KeyboardLayout(configured_keyboards=keyboards)
 def show_popup_calendar(_=None):
     qtile.cmd_spawn(["zenity", "--class", "popup_calendar", "--calendar", "--text", ""])
 
-float_new_clients = False
-
-def toggle_float_new_clients(_=None):
-    global float_new_clients
-    float_new_clients = not float_new_clients
-
-
 colors = {
     "bar": ["#232729"],
     "tasklist_focus": ["#0e3e67"],
