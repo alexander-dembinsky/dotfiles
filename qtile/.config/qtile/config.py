@@ -103,8 +103,9 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        bottom=bar.Bar(
+        top=bar.Bar(
             [
+                widget.TextBox(text="🔎", mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("rofi -show-icons -show drun -matching fuzzy")}),
                 widget.GroupBox(highlight_color=colors["group_highlight"], active=colors["group_active"], inactive=colors["group_inactive"], highlight_method='line'),
                 widget.Sep(size_percent=60),
                 widget.Prompt(prompt='$', fmt='<span color="green"><b>{}</b></span>'),
@@ -120,7 +121,7 @@ screens = [
                 widget.TextBox(text="🕑"),
                 widget.Clock(fontsize=14, format='<span size="x-small">%m-%d-%y</span>\n<span size="medium"><tt>%H:%M</tt></span>'),
             ],
-            30,
+            32,
             background=colors["bar"],
             opacity=0.8,
         ),
