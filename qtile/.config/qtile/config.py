@@ -75,7 +75,6 @@ keys = [
     Key([mod, "shift"], "Print", lazy.spawn(os.path.expanduser("~/.config/qtile/screenshot")), desc="Screenshot"),
     Key([mod], "F5", lazy.spawn(os.path.expanduser("~/.bin/tv")), desc="TV script"),
     Key([mod], "F2", lazy.spawn(os.path.expanduser("~/.config/qtile/edit_config.sh")), desc="TV script"),
-    Key([mod], "F12", lazy.function(toggle_float_new_clients), desc="Toggle floating mode for new clients"),
     Key([mod, "shift"], "a", lazy.spawn("arandr"), desc="Screen configuration"),
 ]
 
@@ -104,7 +103,7 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        top=bar.Bar(
+        bottom=bar.Bar(
             [
                 widget.GroupBox(highlight_color=colors["group_highlight"], active=colors["group_active"], inactive=colors["group_inactive"], highlight_method='line'),
                 widget.Sep(size_percent=60),
