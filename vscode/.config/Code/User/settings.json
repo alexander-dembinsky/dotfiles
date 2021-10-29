@@ -1,6 +1,7 @@
 {
     "workbench.iconTheme": "eq-material-theme-icons",
     "telemetry.telemetryLevel": "off",
+    "terminal.integrated.fontSize": 18,
     "editor.fontSize": 18,
     "vim.hlsearch": true,
     "vim.useCtrlKeys": true,
