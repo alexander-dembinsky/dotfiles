@@ -6,16 +6,21 @@ return require('packer').startup(function()
   -- Colorscheme
   use 'tomasiser/vim-code-dark'
   use 'rakr/vim-one'
+
+
   -- Nvim tree
   use {
     'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons'
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function() require'nvim-tree'.setup {} end
   }
-  -- Telescope 
+
+  -- Telescope
   use {
     'nvim-telescope/telescope.nvim',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
+
   -- Airline
   use { 
     'vim-airline/vim-airline',
@@ -23,11 +28,6 @@ return require('packer').startup(function()
   }
   -- COC
   use {'neoclide/coc.nvim', branch = 'release'}
-  -- TreeSitter
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
-  }
   -- Fugitive
   use {
     'tpope/vim-fugitive'
