@@ -13,10 +13,6 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
-local hotkeys_popup = require("awful.hotkeys_popup")
--- Enable hotkeys help widget for VIM and other apps
--- when client with a matching name is opened:
-require("awful.hotkeys_popup.keys")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -48,8 +44,13 @@ end
 selected_theme = "default"
 --beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), selected_theme))
 beautiful.init("/usr/share/awesome/themes/gtk/theme.lua")
-beautiful.border_width=1
-beautiful.border_focus="#ca4519"
+beautiful.border_width=0
+beautiful.border_focus="#cacafa"
+beautiful.titlebar_bg_normal="#000000"
+beautiful.titlebar_bg_focus="#101025"
+
+beautiful.taglist_bg_focus="#101025"
+
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "vim"
@@ -261,6 +262,8 @@ globalkeys = gears.table.join(
               {description = "open a file manager", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "f", function () awful.spawn("firefox") end,
               {description = "open a web browser", group = "launcher"}),
+    awful.key({ modkey, "Shift"   }, "b", function () awful.spawn("brave") end,
+              {description = "open a web browser", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "t", function () awful.spawn.with_shell("sh ~/.bin/tv") end,
               {description = "TV menu", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "n", function () awful.spawn.with_shell("BROWSER=firefox " .. terminal .. " -e newsboat -r") end,
@@ -296,8 +299,8 @@ globalkeys = gears.table.join(
               {description = "run prompt", group = "launcher"}),
 
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"}),
+    awful.key({ modkey }, "p", function() awful.spawn("rofi -show drun") end,
+              {description = "rofi", group = "launcher"}),
     -- Layout switcher
     awful.key({ modkey }, "space", function () mykeyboardlayout.next_layout(); end)
 )
@@ -522,7 +525,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = false }
+      }, properties = { titlebars_enabled = true }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -544,6 +547,10 @@ client.connect_signal("manage", function (c)
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
+
+    c.shape = function(cr,w,h)
+        gears.shape.rounded_rect(cr,w,h,5)
+    end
 end)
 
 
@@ -561,15 +568,15 @@ client.connect_signal("request::titlebars", function(c)
         end)
     )
 
-    awful.titlebar(c, { size = 24 }) : setup {
+    awful.titlebar(c, { size = 28 }) : setup {
         { -- Left
-            wibox.container.margin(awful.titlebar.widget.iconwidget(c), 2, 2, 2, 2),
+            wibox.container.margin(awful.titlebar.widget.iconwidget(c), 8, 4, 4, 4),
             buttons = buttons,
             layout  = wibox.layout.fixed.horizontal
         },
         { -- Middle
             { -- Title
-                align  = "center",
+                align  = "left",
                 widget = awful.titlebar.widget.titlewidget(c)
             },
             buttons = buttons,
