@@ -1,3 +1,13 @@
 {
-
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-11",
+      "path": "/usr/local/Cellar/openjdk@11/11.0.15/libexec/openjdk.jdk/Contents/Home",
+		"default": true
+    }
+  ],
+  "java.jdt.ls.vmargs": "-javaagent:\"/Users/ode/software/lombok/lombok.jar\"",
+  "java.import.maven.enabled": true,
+  "xml.java.home": "/usr/local/Cellar/openjdk@11/11.0.15/libexec/openjdk.jdk/Contents/Home"
 }
+
