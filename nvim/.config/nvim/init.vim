@@ -42,6 +42,9 @@ Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+" Bookmarks
+Plug 'alexander-dembinsky/bookmarks'
+
 " CoC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'SirVer/ultisnips'
@@ -64,7 +67,6 @@ nnoremap <C-f> :NERDTreeFind<CR>
 nnoremap <leader>n :NERDTreeFocus<CR>
 
 " Fuzzy
-exec 'source' . path . '/bookmarks.vim'
 nnoremap <silent> <expr> <leader><leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":FZF\<cr>"
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>fl :BLines<CR>
