@@ -56,6 +56,9 @@ Plug 'vim-test/vim-test'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" Floaterm
+Plug 'voldikss/vim-floaterm'
+
 call plug#end()
 
 set background=dark
@@ -77,7 +80,7 @@ exec 'source' . path . '/coc.vim'
 exec 'source' . path . '/java.vim'
 
 " Tests
-let test#strategy = 'neovim'
+let test#strategy = 'floaterm'
 
 nmap <silent> <leader>tn :TestNearest<CR>
 nmap <silent> <leader>tf :TestFile<CR>
