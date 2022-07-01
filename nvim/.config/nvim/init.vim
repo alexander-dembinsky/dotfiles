@@ -91,3 +91,15 @@ nmap <silent> <leader>tv :TestVisit<CR>
 " Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" Floaterm
+let g:floaterm_keymap_new    = '<F12>'
+let g:floaterm_keymap_prev   = '[t'
+let g:floaterm_keymap_next   = ']t'
+let g:floaterm_keymap_first  = '{T'
+let g:floaterm_keymap_last   = '}T'
+let g:floaterm_keymap_hide   = ''
+let g:floaterm_keymap_show   = ''
+let g:floaterm_keymap_kill   = '<C-x>'
+let g:floaterm_keymap_toggle = '<C-t>'
+
