@@ -6,18 +6,15 @@ set tabstop=4
 set shiftwidth=4
 set mouse=a
 set hidden
+set wildcharm=<C-z>
 let path = expand('~/.config/nvim')
 
 imap jj <esc>
 " Format all document
 nmap <leader>F mmgg0vG$<leader>f'm
 
-" Close all buffers except current one
-command! BufCurOnly execute '%bdelete|edit#|bdelete#'
-nmap <leader>bo :BufCurOnly<cr>
-
-" Close current buffer
-nmap <leader>bd :bd<cr>
+" List buffers
+nmap <leader>b :buffer <C-z>
 
 " Navigate between buffers
 nmap ]b :bn<cr>
@@ -71,7 +68,6 @@ nnoremap <leader>n :NERDTreeFocus<CR>
 
 " Fuzzy
 nnoremap <silent> <expr> <leader><leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":FZF\<cr>"
-nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>fl :BLines<CR>
 nnoremap <leader>' :Bookmarks<CR>
 
@@ -89,7 +85,6 @@ nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
 
 " Airline
-let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " Floaterm

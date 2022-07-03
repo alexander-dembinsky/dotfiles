@@ -112,9 +112,9 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " Unit testing tools
 
 fun! GetTargetFile(currentFile) abort
-    if stridx(a:currentFile, 'src/main/java') >= 0 
+    if a:currentFile =~ 'src/main/java'
         return substitute(substitute(a:currentFile, 'src/main/java', 'src/test/java', ''), '\.java', 'Test.java', '')
-    elseif stridx(a:currentFile, 'src/test/java') >= 0
+    elseif a:currentFile =~ 'src/test/java'
         return substitute(substitute(a:currentFile, 'src/test/java', 'src/main/java', ''), 'Test\.java', '.java', '')
     endif
 endf
