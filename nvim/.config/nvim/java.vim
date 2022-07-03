@@ -109,4 +109,30 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
+" Unit testing tools
+
+fun! GetTargetFile(currentFile) abort
+    if stridx(a:currentFile, 'src/main/java') >= 0 
+        return substitute(substitute(a:currentFile, 'src/main/java', 'src/test/java', ''), '\.java', 'Test.java', '')
+    elseif stridx(a:currentFile, 'src/test/java') >= 0
+        return substitute(substitute(a:currentFile, 'src/test/java', 'src/main/java', ''), 'Test\.java', '.java', '')
+    endif
+endf
+
+fun! JumpToTest() abort
+    let targetFile = GetTargetFile(expand('%'))
+
+    if (filereadable(targetFile)) 
+        exec 'e ' . targetFile
+    else
+        echom 'File not found ' . targetFile
+    endif
+endf
+
+command! -nargs=0 JumpToTest call JumpToTest()
+
+nnoremap <silent> <leader>gt :JumpToTest<CR>
+nnoremap <silent> <leader>gT :e `=GetTargetFile(expand('%'))`<CR>
+
+
 
