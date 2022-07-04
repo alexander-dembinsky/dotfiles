@@ -11,6 +11,7 @@ set relativenumber
 set expandtab
 set tabstop=4
 set shiftwidth=4
+set autoindent
 
 # Mouse support
 set mouse=a
@@ -44,3 +45,13 @@ import expand("~/.vim/bookmarks.vim")
 
 nmap <leader>cd :BookmarkCD <C-z>
 
+# Colorscheme
+colorscheme desert
+
+# Plugins
+call plug#begin()
+
+# Git
+Plug 'tpope/vim-fugitive'
+
+call plug#end()
